@@ -6,6 +6,7 @@ one:
   date_start: 2016-03-18
   date_end: 2016-03-18
   account: 1.5
+  area: one
 
 two:
   title: MyString
@@ -13,3 +14,4 @@ two:
   date_start: 2016-03-18
   date_end: 2016-03-18
   account: 1.5
+  area: two

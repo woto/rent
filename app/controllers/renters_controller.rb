@@ -69,6 +69,6 @@ class RentersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def renter_params
-      params.require(:renter).permit(:title, :rate, :date_start, :date_end, :account)
+      params.require(:renter).permit(:title, :rate, :date_start, :date_end, :account, :area_id)
     end
 end

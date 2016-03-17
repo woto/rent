@@ -17,7 +17,7 @@ class RentersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create renter" do
     assert_difference('Renter.count') do
-      post renters_url, params: { renter: { account: @renter.account, date_end: @renter.date_end, date_start: @renter.date_start, rate: @renter.rate, title: @renter.title } }
+      post renters_url, params: { renter: { account: @renter.account, area_id: @renter.area_id, date_end: @renter.date_end, date_start: @renter.date_start, rate: @renter.rate, title: @renter.title } }
     end
 
     assert_redirected_to renter_path(Renter.last)
@@ -34,7 +34,7 @@ class RentersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update renter" do
-    patch renter_url(@renter), params: { renter: { account: @renter.account, date_end: @renter.date_end, date_start: @renter.date_start, rate: @renter.rate, title: @renter.title } }
+    patch renter_url(@renter), params: { renter: { account: @renter.account, area_id: @renter.area_id, date_end: @renter.date_end, date_start: @renter.date_start, rate: @renter.rate, title: @renter.title } }
     assert_redirected_to renter_path(@renter)
   end
 

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317231732) do
+ActiveRecord::Schema.define(version: 20160317234406) do
+
+  create_table "areas", force: :cascade do |t|
+    t.integer  "map_id"
+    t.string   "ref"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "areas", ["map_id"], name: "index_areas_on_map_id"
 
   create_table "maps", force: :cascade do |t|
     t.string   "title"
@@ -26,8 +36,11 @@ ActiveRecord::Schema.define(version: 20160317231732) do
     t.date     "date_start"
     t.date     "date_end"
     t.float    "account"
+    t.integer  "area_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "renters", ["area_id"], name: "index_renters_on_area_id"
 
 end

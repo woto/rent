@@ -6,6 +6,7 @@ class CreateRenters < ActiveRecord::Migration[5.0]
       t.date :date_start
       t.date :date_end
       t.float :account
+      t.references :area, foreign_key: true
 
       t.timestamps
     end
