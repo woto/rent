@@ -1,32 +1,40 @@
-<p id="notice"><%= notice %></p>
+<%= page_header do %>
+  <h1>Арендаторы</h1>
+<% end %>
 
-<h1>Renters</h1>
-
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-inverse">
     <tr>
-      <th>Title</th>
-      <th>Rate</th>
-      <th>Date start</th>
-      <th>Date end</th>
-      <th>Account</th>
-      <th>Area</th>
-      <th colspan="3"></th>
+      <th>Арендатор</th>
+      <th>Договор</th>
+      <th>Ставка</th>
+      <th>Дата начала</th>
+      <th>Дата окончания</th>
+      <th>Счёт</th>
+      <th>Арендуемая площадь</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @renters.each do |renter| %>
       <tr>
-        <td><%= renter.title %></td>
+        <td><%= link_to renter.to_label, renter %></td>
+        <td><%= renter.contract %></td>
         <td><%= renter.rate %></td>
         <td><%= renter.date_start %></td>
         <td><%= renter.date_end %></td>
         <td><%= renter.account %></td>
         <td><%= renter.area %></td>
-        <td><%= link_to 'Show', renter %></td>
-        <td><%= link_to 'Edit', edit_renter_path(renter) %></td>
-        <td><%= link_to 'Destroy', renter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to edit_renter_path(renter), class: 'e-control-links' do %>
+            <%= icon('edit m-r-1') %>Редактировать
+          <% end %>
+          <br />
+          <%= link_to renter, method: :delete, data: { confirm: 'Are you sure?' }, class: 'e-control-links' do %>
+            <%= icon('remove m-r-1') %>Удалить
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -1,26 +1,49 @@
-<p id="notice"><%= notice %></p>
+<%= page_header do %>
+  <h1>Торговые площади</h1>
+<% end %>
 
-<h1>Areas</h1>
+<%= search_form_for @q, class: 'form-inline m-b-2' do |f| %>
+  <div class="form-group">
+    <%= f.search_field :title_cont, class: 'form-control', placeholder: 'Название содержит', style: 'width: 12rem' %>
+    <%= f.collection_select :map_id_eq, Map.all, :id, :to_label, {include_blank: true}, {class: 'custom-select', style: 'width: 12rem'} %>
+    <%= f.search_field :title_gt, class: 'form-control', placeholder: 'Площадь от', style: 'width: 8rem' %>
+    <%= f.search_field :title_lt, class: 'form-control', placeholder: 'Площадь до', style: 'width: 8rem' %>
+    <%= f.search_field :ref_eq, class: 'form-control', placeholder: 'Служ. номер', style: 'width: 8rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-inverse">
     <tr>
-      <th>Map</th>
-      <th>Ref</th>
-      <th>Title</th>
-      <th colspan="3"></th>
+      <th>Название</th>
+      <th>Этаж</th>
+      <th>Площадь</th>
+      <th>Карта</th>
+      <th>Служ. номер</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @areas.each do |area| %>
       <tr>
-        <td><%= area.map %></td>
+        <td><%= link_to area.to_label, area %></td>
+        <td><%= area.map.to_label %></td>
+        <td><%= area.square %></td>
+        <td><%= image_tag area.spotted_map, style: 'width: 300px' %></td>
         <td><%= area.ref %></td>
-        <td><%= area.title %></td>
-        <td><%= link_to 'Show', area %></td>
-        <td><%= link_to 'Edit', edit_area_path(area) %></td>
-        <td><%= link_to 'Destroy', area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to edit_area_path(area), class: 'e-control-links' do %>
+            <%= icon('edit m-r-1') %>Редактировать
+          <% end %>
+          <br />
+          <%= link_to area, method: :delete, data: { confirm: 'Действительно хотите удалить торговую площадь?' }, class: 'e-control-links' do %>
+            <%= icon('remove m-r-1') %>Удалить
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +51,4 @@
 
 <br>
 
-<%= link_to 'New Area', new_area_path %>
+<%= link_to 'Новая торговая площадь', new_area_path %>

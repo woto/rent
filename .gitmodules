@@ -1,3 +1,12 @@
 [submodule "system/submodules/bootstrap"]
 	path = system/submodules/bootstrap
 	url = https://github.com/twbs/bootstrap
+[submodule "system/submodules/Font-Awesome"]
+	path = system/submodules/Font-Awesome
+	url = https://github.com/FortAwesome/Font-Awesome/
+[submodule "system/submodules/URI.js"]
+	path = system/submodules/URI.js
+	url = https://github.com/medialize/URI.js
+[submodule "system/submodules/tether"]
+	path = system/submodules/tether
+	url = https://github.com/HubSpot/tether

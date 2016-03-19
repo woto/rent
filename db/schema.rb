@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317234406) do
+ActiveRecord::Schema.define(version: 20160319151849) do
 
   create_table "areas", force: :cascade do |t|
     t.integer  "map_id"
     t.string   "ref"
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "map"
+    t.string   "spotted_map"
+    t.float    "square"
   end
 
   add_index "areas", ["map_id"], name: "index_areas_on_map_id"
@@ -26,8 +29,9 @@ ActiveRecord::Schema.define(version: 20160317234406) do
   create_table "maps", force: :cascade do |t|
     t.string   "title"
     t.string   "map"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "dashboard_map"
   end
 
   create_table "renters", force: :cascade do |t|
@@ -39,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160317234406) do
     t.integer  "area_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "contract"
   end
 
   add_index "renters", ["area_id"], name: "index_renters_on_area_id"

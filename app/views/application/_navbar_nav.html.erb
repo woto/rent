@@ -1,0 +1,15 @@
+<ul class="nav navbar-nav">
+  <% active = params[:controller] == 'maps' ? ' active' : '' %>
+  <li class="nav-item<%= active %>">
+    <%= link_to 'Территории', maps_path, class: 'nav-link' %>
+  </li>
+  <% active = params[:controller] == 'areas' ? ' active' : '' %>
+  <li class="nav-item<%= active %>">
+    <%= link_to 'Площади', areas_path, class: 'nav-link' %>
+  </li>
+  <% active = params[:controller] == 'renters' ? ' active' : '' %>
+  <li class="nav-item<%= active %>">
+    <%= link_to 'Арендаторы', renters_path, class: 'nav-link' %>
+  </li>
+</ul>
+

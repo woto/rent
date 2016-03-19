@@ -1,16 +1,51 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//
+//= require tether/dist/js/tether
+//
+//= require bootstrap/js/dist/util
+//= require bootstrap/js/dist/alert
+//= require bootstrap/js/dist/button
+//= require bootstrap/js/dist/carousel
+//= require bootstrap/js/dist/collapse
+//= require bootstrap/js/dist/dropdown
+//= require bootstrap/js/dist/modal
+//= require bootstrap/js/dist/scrollspy
+//= require bootstrap/js/dist/tab
+//= require bootstrap/js/dist/tooltip
+//= require bootstrap/js/dist/popover
+//
+//= require URI.js/src/URI.js
+
+$(document).on('click', '.b-svg-map', function(e){
+  $('#menu').remove();
+  $('*').removeClass("on");
+  $path = $(e.target);
+
+  if($path.is('path, rect')) {
+
+    var uri = new URI(window.location)
+    var map_id = uri.segment(1)
+    var list = "";
+    $.get( "/areas/find__id__by__map_id__and__ref", { map_id: map_id, ref: $path.attr('id') } ).done(function(data){
+      if(data != null) {
+        list = '<li><a href="/areas/' + data.id + '">' + data.title + '</a></li>';
+      } else {
+        var params = $.param({map_id: map_id, ref: $path.attr('id')});
+        list = '<li><a href="/areas/new?' + params + '">Новая площадь</a></li>';
+      }
+
+      svg = e.target.getBBox();
+      $('<ul />').attr({id: 'menu'}).
+        css({
+          position: 'absolute',
+          top: svg.y + svg.height/2,
+          left: svg.x + svg.width/2
+        }).append(list).appendTo('.b-svg-map')
+      
+      $(e.target).addClass("on");
+    });
+  }
+  
+})

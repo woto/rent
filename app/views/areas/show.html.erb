@@ -1,19 +1,24 @@
-<p id="notice"><%= notice %></p>
+<%= page_header do %>
+  <h1><%= @area.title %></h1>
+<% end %>
 
 <p>
-  <strong>Map:</strong>
-  <%= @area.map %>
+  <strong>Этаж:</strong>
+  <%= @area.map.to_label %>
 </p>
-
 <p>
-  <strong>Ref:</strong>
+  <strong>Площадь:</strong>
+  <%= @area.square %>
+</p>
+<p>
+  <strong>Служ. номер:</strong>
   <%= @area.ref %>
 </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @area.title %>
-</p>
+
+<%== p @area.spotted_map.read.force_encoding("utf-8") %>
+
+<br />
 
 <%= link_to 'Edit', edit_area_path(@area) %> |
 <%= link_to 'Back', areas_path %>
