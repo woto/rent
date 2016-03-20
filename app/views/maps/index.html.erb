@@ -5,9 +5,10 @@
 <table class="table">
   <thead class="thead-inverse">
     <tr>
+      <th>id</th>
       <th>Название</th>
       <th>Карта</th>
-      <th>Площади</th>
+      <th>Торговые площади</th>
       <th></th>
     </tr>
   </thead>
@@ -15,9 +16,10 @@
   <tbody>
     <% @maps.each do |map| %>
       <tr>
+        <td><%= map.id %></td>
         <td><%= link_to map.to_label, map %></td>
-        <td><%= image_tag map.dashboard_map, style: 'width: 300px' %></td>
-        <td><%= link_to 'Перейти', areas_path(q: {map_id_eq: map.id}) %></td>
+        <td><%= image_tag map.dashboard_map, style: 'width: 200px' %></td>
+        <td><%= link_to 'Торговые площади', areas_path(q: {map_id_eq: map.id}) %></td>
         <td>
           <%= link_to edit_map_path(map), class: 'e-control-links' do %>
             <%= icon('edit m-r-1') %>Редактировать

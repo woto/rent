@@ -1,24 +1,25 @@
 <%= page_header do %>
-  <h1><%= @area.title %></h1>
+  <h1>Просмотр торговой площади <%= @area.title %></h1>
 <% end %>
 
+<%== p @area.spotted_map.read.force_encoding("utf-8") %>
+
 <p>
-  <strong>Этаж:</strong>
-  <%= @area.map.to_label %>
+  <strong>Территория:</strong>
+  <%= link_to @area.map.to_label, map_path(@area.map) %>
 </p>
 <p>
-  <strong>Площадь:</strong>
+  <strong>Кв.м.:</strong>
   <%= @area.square %>
 </p>
 <p>
   <strong>Служ. номер:</strong>
   <%= @area.ref %>
 </p>
-
-
-<%== p @area.spotted_map.read.force_encoding("utf-8") %>
-
-<br />
+<p>
+  <strong>Договора:</strong>
+  <%= link_to 'Договора', contracts_path(q: {area_id_eq: @area.id}) %>
+</p>
 
 <%= link_to 'Edit', edit_area_path(@area) %> |
 <%= link_to 'Back', areas_path %>

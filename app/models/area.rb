@@ -1,10 +1,12 @@
 class Area < ApplicationRecord
-  belongs_to :map
   mount_uploader :spotted_map, MapUploader
+
+  belongs_to :map
+  has_many :contracts
 
   include ToLabel
 
-  validates :map, :ref, presence: true
+  validates :map, :square, :title, :ref, presence: true
   validates :square, numericality: true
   validates :ref, uniqueness: { scope: :map_id, message: "На данную область уже назначена торговая площадь." }
   validate :ref, :check_ref_integrity, if: -> {map.present? && ref.present?}

@@ -7,6 +7,7 @@ class Map < ApplicationRecord
 
   has_many :areas, dependent: :restrict_with_error
 
+  validates :title, presence: true
   validate :check_ref_integrity, on: :update
 
   def redraw_dashboard_map!

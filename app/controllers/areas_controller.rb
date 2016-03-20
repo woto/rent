@@ -38,7 +38,7 @@ class AreasController < ApplicationController
     respond_to do |format|
       if @area.save
         @area.update_spotted_and_dashboard_maps!
-        format.html { redirect_to @area, notice: 'Area was successfully created.' }
+        format.html { redirect_to @area, notice: 'Торговая площадь была успешно создана.' }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class AreasController < ApplicationController
     respond_to do |format|
       if @area.update(area_params)
         @area.update_spotted_and_dashboard_maps!
-        format.html { redirect_to @area, notice: 'Area was successfully updated.' }
+        format.html { redirect_to @area, notice: 'Торговая площадь была успешно изменена.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -66,8 +66,9 @@ class AreasController < ApplicationController
   # DELETE /areas/1.json
   def destroy
     @area.destroy
+    @area.map.redraw_dashboard_map!
     respond_to do |format|
-      format.html { redirect_to areas_url, notice: 'Area was successfully destroyed.' }
+      format.html { redirect_to areas_url, notice: 'Торговая площадь была усешно удалена.' }
       format.json { head :no_content }
     end
   end
@@ -81,9 +82,5 @@ class AreasController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def area_params
       params.require(:area).permit(:map_id, :ref, :title, :square)
-    end
-
-    def ransack_params
-      params.require(:q).permit! if params[:q]
     end
 end

@@ -1,0 +1,33 @@
+<%= page_header do %>
+  <h1>Просмотр договора <%= @contract.to_label %></h1>
+<% end %>
+
+<%== @contract.area.spotted_map.read.force_encoding("utf-8") if @contract.area %>
+
+<p>
+  <strong>Арендатор:</strong>
+  <%= link_to @contract.renter.to_label, renter_path(@contract.renter) %>
+</p>
+
+<p>
+  <strong>Торговая площадь:</strong>
+  <%= link_to @contract.area.to_label, area_path(@contract.area) %>
+</p>
+
+<p>
+  <strong>Ставка:</strong>
+  <%= number_to_currency(@contract.rate) %>
+</p>
+
+<p>
+  <strong>Дата начала:</strong>
+  <%= l @contract.date_start %>
+</p>
+
+<p>
+  <strong>Дата окончания:</strong>
+  <%= l @contract.date_end %>
+</p>
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>

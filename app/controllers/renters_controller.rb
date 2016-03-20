@@ -4,7 +4,8 @@ class RentersController < ApplicationController
   # GET /renters
   # GET /renters.json
   def index
-    @renters = Renter.all
+    @q = Renter.ransack(ransack_params)
+    @renters = @q.result
   end
 
   # GET /renters/1
@@ -28,7 +29,7 @@ class RentersController < ApplicationController
 
     respond_to do |format|
       if @renter.save
-        format.html { redirect_to @renter, notice: 'Renter was successfully created.' }
+        format.html { redirect_to @renter, notice: 'Арендатор был успешно создан.' }
         format.json { render :show, status: :created, location: @renter }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class RentersController < ApplicationController
   def update
     respond_to do |format|
       if @renter.update(renter_params)
-        format.html { redirect_to @renter, notice: 'Renter was successfully updated.' }
+        format.html { redirect_to @renter, notice: 'Арендатор был успешно изменен.' }
         format.json { render :show, status: :ok, location: @renter }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class RentersController < ApplicationController
   def destroy
     @renter.destroy
     respond_to do |format|
-      format.html { redirect_to renters_url, notice: 'Renter was successfully destroyed.' }
+      format.html { redirect_to renters_url, notice: 'Арендатор был успешно удален.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class RentersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def renter_params
-      params.require(:renter).permit(:title, :rate, :date_start, :date_end, :account, :area_id)
+      params.require(:renter).permit(:title)
     end
 end

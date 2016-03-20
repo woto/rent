@@ -1,0 +1,8 @@
+<%= page_header do %>
+  <h1>Редактирование договора</h1>
+<% end %>
+
+<%= render 'form', contract: @contract %>
+
+<%= link_to 'Show', @contract %> |
+<%= link_to 'Back', contracts_path %>

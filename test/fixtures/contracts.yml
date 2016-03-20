@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  renter: one
+  area: one
+  rate: 1.5
+  date_start: 2016-03-19 23:05:57
+  date_end: 2016-03-19 23:05:57
+
+two:
+  title: MyString
+  renter: two
+  area: two
+  rate: 1.5
+  date_start: 2016-03-19 23:05:57
+  date_end: 2016-03-19 23:05:57

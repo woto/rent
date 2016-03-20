@@ -5,11 +5,15 @@
   </li>
   <% active = params[:controller] == 'areas' ? ' active' : '' %>
   <li class="nav-item<%= active %>">
-    <%= link_to 'Площади', areas_path, class: 'nav-link' %>
+    <%= link_to 'Торговые площади', areas_path, class: 'nav-link' %>
   </li>
   <% active = params[:controller] == 'renters' ? ' active' : '' %>
   <li class="nav-item<%= active %>">
     <%= link_to 'Арендаторы', renters_path, class: 'nav-link' %>
+  </li>
+  <% active = params[:controller] == 'contracts' ? ' active' : '' %>
+  <li class="nav-item<%= active %>">
+    <%= link_to 'Договора', contracts_path, class: 'nav-link' %>
   </li>
 </ul>
 

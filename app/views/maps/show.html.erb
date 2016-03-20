@@ -1,10 +1,15 @@
 <%= page_header do %>
-  <h1><%= @map.to_label %></h1>
+  <h1>Просмотр территории <%= @map.to_label %></h1>
 <% end %>
 
 <div class="b-svg-map">
   <%== @map.dashboard_map.read.force_encoding("utf-8") %>
 </div>
+
+<p>
+  <strong>Торговые площади:</strong>
+  <%= link_to 'Торговые площади', areas_path(q: {map_id_eq: @map.id}) %>
+</p>
 
 <%= link_to 'Edit', edit_map_path(@map) %> |
 <%= link_to 'Back', maps_path %>

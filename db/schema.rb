@@ -11,41 +11,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319151849) do
+ActiveRecord::Schema.define(version: 20160319200557) do
 
   create_table "areas", force: :cascade do |t|
     t.integer  "map_id"
     t.string   "ref"
     t.string   "title"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "map"
     t.string   "spotted_map"
     t.float    "square"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "areas", ["map_id"], name: "index_areas_on_map_id"
 
+  create_table "contracts", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "renter_id"
+    t.integer  "area_id"
+    t.float    "rate"
+    t.date     "date_start"
+    t.date     "date_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "contracts", ["area_id"], name: "index_contracts_on_area_id"
+  add_index "contracts", ["renter_id"], name: "index_contracts_on_renter_id"
+
   create_table "maps", force: :cascade do |t|
     t.string   "title"
     t.string   "map"
+    t.string   "dashboard_map"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "dashboard_map"
   end
 
   create_table "renters", force: :cascade do |t|
     t.string   "title"
-    t.float    "rate"
-    t.date     "date_start"
-    t.date     "date_end"
-    t.float    "account"
-    t.integer  "area_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "contract"
+    t.float    "account",    default: 0.0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
-
-  add_index "renters", ["area_id"], name: "index_renters_on_area_id"
 
 end

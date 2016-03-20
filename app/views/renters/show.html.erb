@@ -1,31 +1,14 @@
-<p>
-  <strong>Title:</strong>
-  <%= @renter.title %>
-</p>
+<%= page_header do %>
+  <h1>Просмотр арендатора <%= @renter.to_label %></h1>
+<% end %>
 
 <p>
-  <strong>Rate:</strong>
-  <%= @renter.rate %>
-</p>
-
-<p>
-  <strong>Date start:</strong>
-  <%= @renter.date_start %>
-</p>
-
-<p>
-  <strong>Date end:</strong>
-  <%= @renter.date_end %>
-</p>
-
-<p>
-  <strong>Account:</strong>
+  <strong>Счёт:</strong>
   <%= @renter.account %>
 </p>
-
 <p>
-  <strong>Area:</strong>
-  <%= @renter.area %>
+  <strong>Договора:</strong>
+  <%= link_to 'Договора', contracts_path(q: {renter_id_eq: @renter.id}) %>
 </p>
 
 <%= link_to 'Edit', edit_renter_path(@renter) %> |

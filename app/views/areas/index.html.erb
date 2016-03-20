@@ -4,10 +4,21 @@
 
 <%= search_form_for @q, class: 'form-inline m-b-2' do |f| %>
   <div class="form-group">
+    <%= f.search_field :id_eq, class: 'form-control', placeholder: 'id', style: 'width: 3rem' %>
+  </div>
+  <div class="form-group">
     <%= f.search_field :title_cont, class: 'form-control', placeholder: 'Название содержит', style: 'width: 12rem' %>
+  </div>
+  <div class="form-group">
     <%= f.collection_select :map_id_eq, Map.all, :id, :to_label, {include_blank: true}, {class: 'custom-select', style: 'width: 12rem'} %>
-    <%= f.search_field :title_gt, class: 'form-control', placeholder: 'Площадь от', style: 'width: 8rem' %>
-    <%= f.search_field :title_lt, class: 'form-control', placeholder: 'Площадь до', style: 'width: 8rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.search_field :square_gteq, class: 'form-control', placeholder: 'кв.м. от', style: 'width: 6rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.search_field :square_lteq, class: 'form-control', placeholder: 'кв.м. до', style: 'width: 6rem' %>
+  </div>
+  <div class="form-group">
     <%= f.search_field :ref_eq, class: 'form-control', placeholder: 'Служ. номер', style: 'width: 8rem' %>
   </div>
   <div class="form-group">
@@ -18,11 +29,13 @@
 <table class="table">
   <thead class="thead-inverse">
     <tr>
+      <th>id</th>
       <th>Название</th>
-      <th>Этаж</th>
-      <th>Площадь</th>
+      <th>Территория</th>
+      <th>Кв.м.</th>
       <th>Карта</th>
       <th>Служ. номер</th>
+      <th>Договора</th>
       <th></th>
     </tr>
   </thead>
@@ -30,11 +43,13 @@
   <tbody>
     <% @areas.each do |area| %>
       <tr>
+        <td><%= area.id %></td>
         <td><%= link_to area.to_label, area %></td>
-        <td><%= area.map.to_label %></td>
+        <td><%= link_to area.map.to_label, map_path(area.map) %></td>
         <td><%= area.square %></td>
-        <td><%= image_tag area.spotted_map, style: 'width: 300px' %></td>
+        <td><%= image_tag area.spotted_map, style: 'width: 200px' %></td>
         <td><%= area.ref %></td>
+        <td><%= link_to 'Договора', contracts_path(q: {area_id_eq: area.id}) %></td>
         <td>
           <%= link_to edit_area_path(area), class: 'e-control-links' do %>
             <%= icon('edit m-r-1') %>Редактировать

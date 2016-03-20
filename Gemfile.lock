@@ -9,6 +9,14 @@ GIT
       i18n
       polyamorous (~> 1.2)
 
+GIT
+  remote: git://github.com/svenfuchs/rails-i18n.git
+  revision: b97321358035829db74a7dc1e3e46eaacca6aec9
+  specs:
+    rails-i18n (5.0.0.beta3)
+      i18n (~> 0.7)
+      railties (~> 5.0.0.beta1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -186,6 +194,7 @@ DEPENDENCIES
   nokogiri
   puma
   rails (>= 5.0.0.beta3, < 5.1)
+  rails-i18n!
   ransack!
   sass-rails (~> 5.0)
   simple_form

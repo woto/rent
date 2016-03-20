@@ -2,16 +2,31 @@
   <h1>Арендаторы</h1>
 <% end %>
 
+<%= search_form_for @q, class: 'form-inline m-b-2' do |f| %>
+  <div class="form-group">
+    <%= f.search_field :id_eq, class: 'form-control', placeholder: 'id', style: 'width: 3rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.search_field :title_cont, class: 'form-control', placeholder: 'Название содержит', style: 'width: 12rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.search_field :account_gteq, class: 'form-control', placeholder: 'Счёт от', style: 'width: 6rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.search_field :account_lteq, class: 'form-control', placeholder: 'Счёт до', style: 'width: 6rem' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>
+
 <table class="table">
   <thead class="thead-inverse">
     <tr>
-      <th>Арендатор</th>
-      <th>Договор</th>
-      <th>Ставка</th>
-      <th>Дата начала</th>
-      <th>Дата окончания</th>
+      <th>id</th>
+      <th>Название</th>
+      <th>Договора</th>
       <th>Счёт</th>
-      <th>Арендуемая площадь</th>
       <th></th>
     </tr>
   </thead>
@@ -19,13 +34,10 @@
   <tbody>
     <% @renters.each do |renter| %>
       <tr>
+        <td><%= renter.id %></td>
         <td><%= link_to renter.to_label, renter %></td>
-        <td><%= renter.contract %></td>
-        <td><%= renter.rate %></td>
-        <td><%= renter.date_start %></td>
-        <td><%= renter.date_end %></td>
+        <td><%= link_to 'Договора', contracts_path(q: {renter_id_eq: renter.id}) %></td>
         <td><%= renter.account %></td>
-        <td><%= renter.area %></td>
         <td>
           <%= link_to edit_renter_path(renter), class: 'e-control-links' do %>
             <%= icon('edit m-r-1') %>Редактировать
@@ -42,4 +54,4 @@
 
 <br>
 
-<%= link_to 'New Renter', new_renter_path %>
+<%= link_to 'Новый арендатор', new_renter_path %>

@@ -29,7 +29,7 @@ class MapsController < ApplicationController
     respond_to do |format|
       if @map.save
         @map.redraw_dashboard_map!
-        format.html { redirect_to @map, notice: 'Map was successfully created.' }
+        format.html { redirect_to @map, notice: 'Территория была успешно создана.' }
         format.json { render :show, status: :created, location: @map }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class MapsController < ApplicationController
     respond_to do |format|
       if @map.update(map_params)
         @map.redraw_dashboard_map!
-        format.html { redirect_to @map, notice: 'Map was successfully updated.' }
+        format.html { redirect_to @map, notice: 'Территория была успешно изменена.' }
         format.json { render :show, status: :ok, location: @map }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class MapsController < ApplicationController
   def destroy
     respond_to do |format|
       if @map.destroy
-        format.html { redirect_to maps_url, notice: 'Map was successfully destroyed.' }
+        format.html { redirect_to maps_url, notice: 'Территория была успешно удалена.' }
         format.json { head :no_content }
       else
         format.html { redirect_to maps_url, alert: 'Невозможно удалить. Удалите сначала связанные с территорией торговые площади.' }
