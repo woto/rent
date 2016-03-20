@@ -1,0 +1,44 @@
+<%= page_header do %>
+  <h1>Транзакции</h1>
+<% end %>
+
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>id</th>
+      <th>Договор</th>
+      <th>Арендатор</th>
+      <th>Площадь</th>
+      <th>Сумма</th>
+      <th>Счёт был</th>
+      <th>Счёт стал</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.id %></td>
+        <td>
+          <%= transaction.contract_string %><br />
+          <%= link_to(transaction.contract.to_label, contract_path(transaction.contract)) if transaction.contract %>
+        </td>
+        <td>
+          <%= transaction.renter_string %><br />
+          <%= link_to(transaction.renter.to_label, renter_path(transaction.renter)) if transaction.renter %>
+        </td>
+        <td>
+          <%= transaction.area_string %><br />
+          <%= link_to(transaction.area.to_label, area_path(transaction.area)) if transaction.area %>
+        </td>
+        <td><%= number_to_currency transaction.amount %></td>
+        <td><%= number_to_currency transaction.account_were %></td>
+        <td><%= number_to_currency transaction.account %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Новая транзакция', new_transaction_path %>

@@ -15,7 +15,8 @@
 
   <tbody>
     <% @maps.each do |map| %>
-      <tr>
+      <% css_class = 'table-active' if map.areas.any? %>
+      <tr class="<%= css_class %>">
         <td><%= map.id %></td>
         <td><%= link_to map.to_label, map %></td>
         <td><%= image_tag map.dashboard_map, style: 'width: 200px' %></td>

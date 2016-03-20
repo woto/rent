@@ -2,17 +2,17 @@ class Area < ApplicationRecord
   mount_uploader :spotted_map, MapUploader
 
   belongs_to :map
-  has_many :contracts
+  has_many :contracts, dependent: :restrict_with_error
 
   include ToLabel
 
   validates :map, :square, :title, :ref, presence: true
   validates :square, numericality: true
   validates :ref, uniqueness: { scope: :map_id, message: "На данную область уже назначена торговая площадь." }
-  validate :ref, :check_ref_integrity, if: -> {map.present? && ref.present?}
+  validate :ref, :check_ref_integrity
 
   def update_spotted_and_dashboard_maps!
-    memoized_doc.css("##{ref}").first['style'] = 'fill: #008000'
+    memoized_doc.css("##{ref} *").first['style'] = 'fill: #008000'
     Tempfile.open(['spotted_map', '.svg']) do |temp_file|
       temp_file.write(memoized_doc.to_s)
       self.spotted_map = temp_file
@@ -24,7 +24,7 @@ class Area < ApplicationRecord
   private
 
   def check_ref_integrity
-    found = memoized_doc.css("##{ref}")
+    found = memoized_doc.css("##{ref} *")
     errors.add(:ref, 'Отсутствует область с таким служебным номером.') if found.empty?
   end
 

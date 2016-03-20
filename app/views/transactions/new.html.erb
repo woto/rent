@@ -1,0 +1,7 @@
+<%= page_header do %>
+  <h1>Новая транзакция</h1>
+<% end %>
+
+<%= render 'form', transaction: @transaction %>
+
+<%= link_to 'Back', transactions_path %>

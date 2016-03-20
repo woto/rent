@@ -15,7 +15,7 @@ class ContractsController < ApplicationController
 
   # GET /contracts/new
   def new
-    @contract = Contract.new
+    @contract = Contract.new(area_id: params.try(:[], :contract).try(:[], :area_id), renter_id: params.try(:[], :contract).try(:[], :renter_id))
   end
 
   # GET /contracts/1/edit
@@ -29,7 +29,7 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
+        format.html { redirect_to @contract, notice: 'Договор был успешно создан.' }
         format.json { render :show, status: :created, location: @contract }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ContractsController < ApplicationController
   def update
     respond_to do |format|
       if @contract.update(contract_params)
-        format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
+        format.html { redirect_to @contract, notice: 'Договор был успешно изменен.' }
         format.json { render :show, status: :ok, location: @contract }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class ContractsController < ApplicationController
   def destroy
     @contract.destroy
     respond_to do |format|
-      format.html { redirect_to contracts_url, notice: 'Contract was successfully destroyed.' }
+      format.html { redirect_to contracts_url, notice: 'Договор был успешно удален.' }
       format.json { head :no_content }
     end
   end

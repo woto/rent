@@ -65,11 +65,15 @@ class AreasController < ApplicationController
   # DELETE /areas/1
   # DELETE /areas/1.json
   def destroy
-    @area.destroy
-    @area.map.redraw_dashboard_map!
     respond_to do |format|
-      format.html { redirect_to areas_url, notice: 'Торговая площадь была усешно удалена.' }
-      format.json { head :no_content }
+      if @area.destroy
+        @area.map.redraw_dashboard_map!
+        format.html { redirect_to areas_url, notice: 'Торговая площадь была усешно удалена.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to areas_url, alert: 'Невозможно удалить. Удалите сначала связанные торговой площадью договора.' }
+        format.json { render json: @area.errors, status: :unprocessable_entity }
+      end
     end
   end
 

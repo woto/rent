@@ -33,7 +33,8 @@
 
   <tbody>
     <% @renters.each do |renter| %>
-      <tr>
+      <% css_class = 'table-active' if renter.contracts.where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'").any? %>
+      <tr class="<%= css_class %>">
         <td><%= renter.id %></td>
         <td><%= link_to renter.to_label, renter %></td>
         <td><%= link_to 'Договора', contracts_path(q: {renter_id_eq: renter.id}) %></td>
@@ -43,7 +44,7 @@
             <%= icon('edit m-r-1') %>Редактировать
           <% end %>
           <br />
-          <%= link_to renter, method: :delete, data: { confirm: 'Are you sure?' }, class: 'e-control-links' do %>
+          <%= link_to renter, method: :delete, data: { confirm: 'Действительно хотите удалить арендатора?' }, class: 'e-control-links' do %>
             <%= icon('remove m-r-1') %>Удалить
           <% end %>
         </td>

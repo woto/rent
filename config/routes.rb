@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :transactions
   resources :contracts
   root to: 'maps#index'
 

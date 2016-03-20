@@ -13,7 +13,7 @@ class Map < ApplicationRecord
   def redraw_dashboard_map!
     Tempfile.open(['dashboard_map', '.svg']) do |temp_file|
       areas.each do |area|
-        memoized_doc.css("##{area.ref}").first['style'] = 'fill: #008000'
+        memoized_doc.css("##{area.ref} *").first['style'] = 'fill: #008000'
       end
       temp_file.write(memoized_doc.to_s)
       self.dashboard_map = temp_file
@@ -26,7 +26,7 @@ class Map < ApplicationRecord
   def check_ref_integrity
     missing_areas = []
     areas.each do |area|
-      if memoized_doc.css("##{area.ref}").empty?
+      if memoized_doc.css("##{area.ref} *").empty?
         missing_areas << area.ref
       end
     end

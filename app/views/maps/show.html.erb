@@ -2,7 +2,7 @@
   <h1>Просмотр территории <%= @map.to_label %></h1>
 <% end %>
 
-<div class="b-svg-map">
+<div class="b-svg-map m-y-2">
   <%== @map.dashboard_map.read.force_encoding("utf-8") %>
 </div>
 

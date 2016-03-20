@@ -27,7 +27,7 @@
       <th>Название</th>
       <th>Арендатор</th>
       <th>Площадь</th>
-      <th>Ставка в мес</th>
+      <th>Ставка в день</th>
       <th>Дата начала</th>
       <th>Дата окончания</th>
       <th colspan="3"></th>
@@ -36,7 +36,8 @@
 
   <tbody>
     <% @contracts.each do |contract| %>
-      <tr>
+      <% css_class = 'table-active' if contract.date_start <= Date.today && contract.date_end >= Date.today %>
+      <tr class="<%= css_class %>">
         <td><%= contract.id %></td>
         <td><%= link_to contract.title, contract_path(contract) %></td>
         <td>

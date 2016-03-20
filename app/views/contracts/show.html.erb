@@ -2,7 +2,9 @@
   <h1>Просмотр договора <%= @contract.to_label %></h1>
 <% end %>
 
-<%== @contract.area.spotted_map.read.force_encoding("utf-8") if @contract.area %>
+<div class="m-y-2">
+  <%== @contract.area.spotted_map.read.force_encoding("utf-8") if @contract.area %>
+</div>
 
 <p>
   <strong>Арендатор:</strong>

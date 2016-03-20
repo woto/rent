@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319200557) do
+ActiveRecord::Schema.define(version: 20160320124855) do
 
   create_table "areas", force: :cascade do |t|
     t.integer  "map_id"
@@ -53,5 +53,23 @@ ActiveRecord::Schema.define(version: 20160319200557) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string   "contract_string"
+    t.string   "renter_string"
+    t.string   "area_string"
+    t.integer  "contract_id"
+    t.integer  "renter_id"
+    t.integer  "area_id"
+    t.float    "amount"
+    t.float    "account_were"
+    t.float    "account"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "transactions", ["area_id"], name: "index_transactions_on_area_id"
+  add_index "transactions", ["contract_id"], name: "index_transactions_on_contract_id"
+  add_index "transactions", ["renter_id"], name: "index_transactions_on_renter_id"
 
 end

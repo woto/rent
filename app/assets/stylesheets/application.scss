@@ -54,3 +54,7 @@ body {
 .b-help {
   @extend .m-b-0;
 }
+
+.table-active, .table-active > th, .table-active > td {
+  background-color: #E4E4E4;
+}

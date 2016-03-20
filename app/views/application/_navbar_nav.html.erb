@@ -15,5 +15,9 @@
   <li class="nav-item<%= active %>">
     <%= link_to 'Договора', contracts_path, class: 'nav-link' %>
   </li>
+  <% active = params[:controller] == 'transactions' ? ' active' : '' %>
+  <li class="nav-item<%= active %>">
+    <%= link_to 'Транзакции', transactions_path, class: 'nav-link' %>
+  </li>
 </ul>
 

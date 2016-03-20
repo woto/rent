@@ -42,7 +42,8 @@
 
   <tbody>
     <% @areas.each do |area| %>
-      <tr>
+      <% css_class = 'table-active' if area.contracts.where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'").any? %>
+      <tr class="<%= css_class %>">
         <td><%= area.id %></td>
         <td><%= link_to area.to_label, area %></td>
         <td><%= link_to area.map.to_label, map_path(area.map) %></td>

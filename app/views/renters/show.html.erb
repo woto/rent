@@ -11,5 +11,10 @@
   <%= link_to 'Договора', contracts_path(q: {renter_id_eq: @renter.id}) %>
 </p>
 
+<p>
+  <%= link_to 'Новый договор для этого арендатора', new_contract_path(contract: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Внести средства на счёт', new_transaction_path(transaction: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
+</p>
+
 <%= link_to 'Edit', edit_renter_path(@renter) %> |
 <%= link_to 'Back', renters_path %>

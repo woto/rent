@@ -1,0 +1,37 @@
+<p>
+  <strong>Contract string:</strong>
+  <%= @transaction.contract_string %>
+</p>
+
+<p>
+  <strong>Renter string:</strong>
+  <%= @transaction.renter_string %>
+</p>
+
+<p>
+  <strong>Area string:</strong>
+  <%= @transaction.area_string %>
+</p>
+
+<p>
+  <strong>Contract:</strong>
+  <%= @transaction.contract %>
+</p>
+
+<p>
+  <strong>Renter:</strong>
+  <%= @transaction.renter %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @transaction.area %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @transaction.amount %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

@@ -2,7 +2,9 @@
   <h1>Просмотр торговой площади <%= @area.title %></h1>
 <% end %>
 
-<%== p @area.spotted_map.read.force_encoding("utf-8") %>
+<div class="m-y-2">
+  <%== p @area.spotted_map.read.force_encoding("utf-8") %>
+</div>
 
 <p>
   <strong>Территория:</strong>
@@ -19,6 +21,10 @@
 <p>
   <strong>Договора:</strong>
   <%= link_to 'Договора', contracts_path(q: {area_id_eq: @area.id}) %>
+</p>
+
+<p>
+  <%= link_to 'Новый договор для этой торговой площади', new_contract_path(contract: {area_id: @area.id}), class: 'btn btn-outline-primary' %>
 </p>
 
 <%= link_to 'Edit', edit_area_path(@area) %> |

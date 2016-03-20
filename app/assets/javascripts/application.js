@@ -18,34 +18,36 @@
 //
 //= require URI.js/src/URI.js
 
-$(document).on('click', '.b-svg-map', function(e){
+$(document).on('click', function(e){
   $('#menu').remove();
   $('*').removeClass("on");
-  $path = $(e.target);
+  $target = $(e.target);
 
-  if($path.is('path, rect')) {
+  if($target.closest('.b-svg-map g').length > 0) {
 
-    var uri = new URI(window.location)
-    var map_id = uri.segment(1)
-    var list = "";
-    $.get( "/areas/find__id__by__map_id__and__ref", { map_id: map_id, ref: $path.attr('id') } ).done(function(data){
-      if(data != null) {
-        list = '<li><a href="/areas/' + data.id + '">' + data.title + '</a></li>';
-      } else {
-        var params = $.param({map_id: map_id, ref: $path.attr('id')});
-        list = '<li><a href="/areas/new?' + params + '">Новая площадь</a></li>';
-      }
+    if($target.is('rect, circle, ellipse, polyline, polygon, path')) {
 
-      svg = e.target.getBBox();
-      $('<ul />').attr({id: 'menu'}).
-        css({
-          position: 'absolute',
-          top: svg.y + svg.height/2,
-          left: svg.x + svg.width/2
-        }).append(list).appendTo('.b-svg-map')
-      
-      $(e.target).addClass("on");
-    });
+      var uri = new URI(window.location)
+      var map_id = uri.segment(1)
+      var list = "";
+      $.get( "/areas/find__id__by__map_id__and__ref", { map_id: map_id, ref: $target.closest('g').attr('id') } ).done(function(data){
+        if(data != null) {
+          list = '<li><a href="/areas/' + data.id + '">' + data.title + '</a></li>';
+        } else {
+          var params = $.param({map_id: map_id, ref: $target.closest('g').attr('id')});
+          list = '<li><a href="/areas/new?' + params + '">Новая площадь</a></li>';
+        }
+
+        svg = e.target.getBBox();
+        $('<ul />').attr({id: 'menu'}).
+          css({
+            position: 'absolute',
+            top: svg.y + svg.height/2,
+            left: svg.x + svg.width/2
+          }).append(list).appendTo('.b-svg-map')
+        
+        $(e.target).addClass("on");
+      });
+    }
   }
-  
 })

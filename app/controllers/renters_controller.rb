@@ -55,10 +55,14 @@ class RentersController < ApplicationController
   # DELETE /renters/1
   # DELETE /renters/1.json
   def destroy
-    @renter.destroy
     respond_to do |format|
-      format.html { redirect_to renters_url, notice: 'Арендатор был успешно удален.' }
-      format.json { head :no_content }
+      if @renter.destroy
+        format.html { redirect_to renters_url, notice: 'Арендатор был успешно удален.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to renters_url, alert: 'Невозможно удалить. Удалите сначала связанные договора.' }
+        format.json { render json: @renter.errors, status: :unprocessable_entity }
+      end
     end
   end
 
