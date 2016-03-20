@@ -8,8 +8,8 @@
 /.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
+#/db/*.sqlite3
+#/db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -20,6 +20,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# VIM
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
@@ -31,5 +32,6 @@ Session.vim
 # auto-generated tag files
 tags
 
+# Rails
 public/uploads
 public/assets
