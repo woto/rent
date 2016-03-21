@@ -48,10 +48,9 @@
         </td>
         <td>
           <%= link_to area_path(contract.area) do %>
-            <%= contract.area.to_label %>
-            <br />
-            <%= image_tag contract.area.spotted_map, style: 'width: 200px' %>
-          <% end %>
+            <%= contract.area.to_label %><br />
+            <%= image_tag contract.area.spotted_map, style: 'width: 200px' %><% end %><br />
+          <span class="text-muted"><%= contract.area.square %> м<sup>2</sup> - <%= contract.area.ref %></span>
         </td>
         <td><%= currency contract.rate %></td>
         <td>

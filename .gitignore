@@ -35,3 +35,5 @@ tags
 # Rails
 public/uploads
 public/assets
+
+.env
