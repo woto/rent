@@ -2,12 +2,13 @@
   <h1>Территории</h1>
 <% end %>
 
-<table class="table">
+<%= link_to 'Новая территория', new_map_path %>
+
+<table class="table m-t-1">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
       <th>Название</th>
-      <th>Карта</th>
       <th>Торговые площади</th>
       <th></th>
     </tr>
@@ -18,8 +19,11 @@
       <% css_class = 'table-active' if map.areas.any? %>
       <tr class="<%= css_class %>">
         <td><%= map.id %></td>
-        <td><%= link_to map.to_label, map %></td>
-        <td><%= image_tag map.dashboard_map, style: 'width: 200px' %></td>
+        <td>
+          <%= link_to map do %>
+            <%= map.to_label %><br />
+            <%= image_tag map.dashboard_map, style: 'width: 200px' %><% end %>
+        </td>
         <td><%= link_to 'Торговые площади', areas_path(q: {map_id_eq: map.id}) %></td>
         <td>
           <%= link_to edit_map_path(map), class: 'e-control-links' do %>
@@ -34,7 +38,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Новая территория', new_map_path %>

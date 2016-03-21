@@ -7,6 +7,14 @@
 </div>
 
 <p>
+  <strong>Актуальные договора площади:</strong>
+  <%= area_actual_contracts(@area) %>
+</p>
+<p>
+  <strong>Все договора площади:</strong>
+  <%= link_to 'Договора', contracts_path(q: {area_id_eq: @area.id}) %>
+</p>
+<p>
   <strong>Территория:</strong>
   <%= link_to @area.map.to_label, map_path(@area.map) %>
 </p>
@@ -17,10 +25,6 @@
 <p>
   <strong>Служ. номер:</strong>
   <%= @area.ref %>
-</p>
-<p>
-  <strong>Договора:</strong>
-  <%= link_to 'Договора', contracts_path(q: {area_id_eq: @area.id}) %>
 </p>
 
 <p>

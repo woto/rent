@@ -4,7 +4,9 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.order(id: :desc)
+    @q = Transaction.ransack(ransack_params)
+    @q.sorts = 'id desc' if @q.sorts.empty?
+    @transactions = @q.result
   end
 
   ## GET /transactions/1

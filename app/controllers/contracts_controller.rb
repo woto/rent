@@ -5,6 +5,7 @@ class ContractsController < ApplicationController
   # GET /contracts.json
   def index
     @q = Contract.ransack(ransack_params)
+    @q.sorts = 'id desc' if @q.sorts.empty?
     @contracts = @q.result
   end
 

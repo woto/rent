@@ -13,6 +13,7 @@ class AreasController < ApplicationController
   # GET /areas.json
   def index
     @q = Area.ransack(ransack_params)
+    @q.sorts = 'id desc' if @q.sorts.empty?
     @areas = @q.result
   end
 

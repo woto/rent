@@ -3,12 +3,20 @@
 <% end %>
 
 <p>
-  <strong>Счёт:</strong>
-  <%= @renter.account %>
+  <strong>Актуальные договора арендатора:</strong>
+  <%= renter_actual_contracts(@renter) %>
 </p>
 <p>
-  <strong>Договора:</strong>
+  <strong>Все договора арендатора:</strong>
   <%= link_to 'Договора', contracts_path(q: {renter_id_eq: @renter.id}) %>
+</p>
+<p>
+  <strong>Счёт:</strong>
+  <%= currency @renter.account %>
+</p>
+<p>
+  <strong>Прогноз:</strong>
+  <%= currency @renter.forecast %>
 </p>
 
 <p>

@@ -9,6 +9,8 @@ class Contract < ApplicationRecord
   validates :title, :renter, :area, :rate, presence: true
   validates :rate, numericality: {greater_than: 0}
 
+  scope :actual, -> {where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'")}
+
   private
 
   def check_date_end_lt_date_start

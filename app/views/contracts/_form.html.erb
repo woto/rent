@@ -6,8 +6,8 @@
     <%= f.association :renter %>
     <%= f.association :area %>
     <%= f.input :rate %>
-    <%= f.input :date_start %>
-    <%= f.input :date_end %>
+    <%= f.input :date_start, hint: 'В случае указания сегодняшней даты, списание произведется сегодня же в 23:00. Т.е. сегодня утром заключил договор и сразу въехал.' %>
+    <%= f.input :date_end, hint: 'Дата указывается включительно. Т.е. если указать 5 июля, то ночью 5 июля арендатор съезжает и 6 июля его уже не будет.' %>
   </div>
 
   <div class="form-actions">

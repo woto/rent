@@ -2,7 +2,9 @@
   <h1>Транзакции</h1>
 <% end %>
 
-<table class="table">
+<%= link_to 'Новая транзакция', new_transaction_path %>
+
+<table class="table m-t-1">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
@@ -10,8 +12,7 @@
       <th>Арендатор</th>
       <th>Площадь</th>
       <th>Сумма</th>
-      <th>Счёт был</th>
-      <th>Счёт стал</th>
+      <th>Было, Стало</th>
     </tr>
   </thead>
 
@@ -31,14 +32,12 @@
           <%= transaction.area_string %><br />
           <%= link_to(transaction.area.to_label, area_path(transaction.area)) if transaction.area %>
         </td>
-        <td><%= number_to_currency transaction.amount %></td>
-        <td><%= number_to_currency transaction.account_were %></td>
-        <td><%= number_to_currency transaction.account %></td>
+        <td><%= currency transaction.amount %></td>
+        <td>
+          <%= currency transaction.account_were %><br />
+          <%= currency transaction.account %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Новая транзакция', new_transaction_path %>

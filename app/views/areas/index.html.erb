@@ -26,15 +26,14 @@
   </div>
 <% end %>
 
-<table class="table">
+<%= link_to 'Новая торговая площадь', new_area_path %>
+
+<table class="table m-t-1">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
       <th>Название</th>
       <th>Территория</th>
-      <th>Кв.м.</th>
-      <th>Карта</th>
-      <th>Служ. номер</th>
       <th>Договора</th>
       <th></th>
     </tr>
@@ -45,12 +44,16 @@
       <% css_class = 'table-active' if area.contracts.where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'").any? %>
       <tr class="<%= css_class %>">
         <td><%= area.id %></td>
-        <td><%= link_to area.to_label, area %></td>
+        <td>
+          <%= link_to area do %>
+            <%= area.to_label %><br />
+            <%= image_tag area.spotted_map, style: 'width: 200px' %><% end %><br />
+          <span class="text-muted"><%= area.square %> м<sup>2</sup> - <%= area.ref %></span>
+        </td>
         <td><%= link_to area.map.to_label, map_path(area.map) %></td>
-        <td><%= area.square %></td>
-        <td><%= image_tag area.spotted_map, style: 'width: 200px' %></td>
-        <td><%= area.ref %></td>
-        <td><%= link_to 'Договора', contracts_path(q: {area_id_eq: area.id}) %></td>
+        <td>
+          <%= area_actual_contracts(area) %>
+          <%= link_to 'Все договора площади', contracts_path(q: {area_id_eq: area.id}) %></td>
         <td>
           <%= link_to edit_area_path(area), class: 'e-control-links' do %>
             <%= icon('edit m-r-1') %>Редактировать
@@ -64,7 +67,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Новая торговая площадь', new_area_path %>

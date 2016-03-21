@@ -18,7 +18,7 @@ class Transaction < ApplicationRecord
       self.contract_string = contract.to_label
       self.area = contract.area
       self.area_string = contract.area.to_label
-      self.amount = contract.rate
+      self.amount = - contract.rate
       self.renter = contract.renter
     end
   end

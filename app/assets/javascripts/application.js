@@ -51,3 +51,7 @@ $(document).on('click', function(e){
     }
   }
 })
+
+$(document).on("turbolinks:load", function() {
+  $('[data-toggle="tooltip"]').tooltip()
+})

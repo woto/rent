@@ -20,25 +20,37 @@
   </div>
 <% end %>
 
-<table class="table">
+<%= link_to 'Новый арендатор', new_renter_path %>
+
+<table class="table m-t-1">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
       <th>Название</th>
       <th>Договора</th>
-      <th>Счёт</th>
+      <th>Счёт, Прогноз</th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @renters.each do |renter| %>
-      <% css_class = 'table-active' if renter.contracts.where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'").any? %>
+      <% css_class = case %>
+        <% when renter.account < 0 || renter.forecast < 0 %>
+        <% 'table-danger' %>
+        <% when renter.actual_contracts.any? %>
+        <% 'table-active' %>
+      <% end %>
       <tr class="<%= css_class %>">
         <td><%= renter.id %></td>
         <td><%= link_to renter.to_label, renter %></td>
-        <td><%= link_to 'Договора', contracts_path(q: {renter_id_eq: renter.id}) %></td>
-        <td><%= renter.account %></td>
+        <td>
+          <%= renter_actual_contracts(renter) %>
+          <%= link_to 'Все договора арендатора', contracts_path(q: {renter_id_eq: renter.id}) %>
+        </td>
+        <td>
+          <%= currency renter.account %><br />
+          <%= currency renter.forecast %>
         <td>
           <%= link_to edit_renter_path(renter), class: 'e-control-links' do %>
             <%= icon('edit m-r-1') %>Редактировать
@@ -52,7 +64,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Новый арендатор', new_renter_path %>

@@ -5,6 +5,7 @@ class RentersController < ApplicationController
   # GET /renters.json
   def index
     @q = Renter.ransack(ransack_params)
+    @q.sorts = 'id desc' if @q.sorts.empty?
     @renters = @q.result
   end
 
@@ -60,7 +61,7 @@ class RentersController < ApplicationController
         format.html { redirect_to renters_url, notice: 'Арендатор был успешно удален.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to renters_url, alert: 'Невозможно удалить. Удалите сначала связанные договора.' }
+        format.html { redirect_to renters_url, alert: 'Невозможно удалить. Либо существуют связанные договора, либо на счету имеются средства.' }
         format.json { render json: @renter.errors, status: :unprocessable_entity }
       end
     end
