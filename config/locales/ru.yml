@@ -1,0 +1,15 @@
+ru:
+  helpers:
+    submit:
+      map:
+        create: 'Создать карту'
+        update: 'Сохранить карту'
+      area:
+        create: 'Создать площадь'
+        update: 'Сохранить площадь'
+      renter:
+        create: 'Создать арендатора'
+        update: 'Сохранить арендатора'
+      contract:
+        create: 'Создать договор'
+        update: 'Сохранить договор'

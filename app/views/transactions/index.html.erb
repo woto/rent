@@ -13,6 +13,7 @@
       <th>Площадь</th>
       <th>Сумма</th>
       <th>Было, Стало</th>
+      <th>Дата</th>
     </tr>
   </thead>
 
@@ -36,6 +37,9 @@
         <td>
           <%= currency transaction.account_were %><br />
           <%= currency transaction.account %>
+        </td>
+        <td>
+          <%= l transaction.created_at, format: :long %>
         </td>
       </tr>
     <% end %>
