@@ -3,33 +3,33 @@
 <% end %>
 
 <div class="m-y-2">
-  <%== @contract.area.spotted_map.read.force_encoding("utf-8") if @contract.area %>
+  <%== @contract.area.spotted_map.read.force_encoding("utf-8") %><br />
+  <span class="text-muted"><%= @contract.area.square %> м<sup>2</sup> - <%= @contract.area.ref %></span>
 </div>
 
-<p>
-  <strong>Арендатор:</strong>
+<div class="m-b-1">
+  <strong>Арендатор:</strong><br />
   <%= link_to @contract.renter.to_label, renter_path(@contract.renter) %>
-</p>
+</div>
 
-<p>
-  <strong>Торговая площадь:</strong>
+<div class="m-b-1">
+  <strong>Торговая площадь:</strong><br />
   <%= link_to @contract.area.to_label, area_path(@contract.area) %>
-</p>
+</div>
 
-<p>
-  <strong>Ставка:</strong>
+<div class="m-b-1">
+  <strong>Ставка в день:</strong><br />
   <%= currency @contract.rate %>
-</p>
+</div>
 
-<p>
-  <strong>Дата начала:</strong>
+<div class="m-b-1">
+  <strong>Начало:</strong><br />
   <%= l @contract.date_start %>
-</p>
+</div>
 
-<p>
-  <strong>Дата окончания:</strong>
+<div class="m-b-1">
+  <strong>Конец:</strong><br />
   <%= l @contract.date_end %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_contract_path(@contract) %> |
-<%= link_to 'Back', contracts_path %>
+<%= render 'controls', contract: @contract %>

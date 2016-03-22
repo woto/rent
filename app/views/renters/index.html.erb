@@ -2,65 +2,77 @@
   <h1>Арендаторы</h1>
 <% end %>
 
-<%= search_form_for @q, class: 'form-inline m-b-2' do |f| %>
-  <div class="form-group">
-    <%= f.search_field :id_eq, class: 'form-control', placeholder: 'id', style: 'width: 3rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.search_field :title_cont, class: 'form-control', placeholder: 'Название содержит', style: 'width: 12rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.search_field :account_gteq, class: 'form-control', placeholder: 'Счёт от', style: 'width: 6rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.search_field :account_lteq, class: 'form-control', placeholder: 'Счёт до', style: 'width: 6rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
-  </div>
+<%= ransack_search do %>
+  <%= search_form_for @q, wrapper: :horizontal_form do |f| %>
+    <%= f.input :id_eq %>
+    <%= f.input :title_cont %>
+    <%= f.input :account_gteq %>
+    <%= f.input :account_lteq %>
+    <div class="form-group">
+      <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= link_to 'Новый арендатор', new_renter_path %>
 
-<table class="table m-t-1">
-  <thead class="thead-inverse">
-    <tr>
-      <th>id</th>
-      <th>Название</th>
-      <th>Договора</th>
-      <th>Счёт, Прогноз</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @renters.each do |renter| %>
-      <% css_class = case %>
-        <% when renter.account < 0 || renter.forecast < 0 %>
-        <% 'table-danger' %>
-        <% when renter.actual_contracts.any? %>
-        <% 'table-active' %>
-      <% end %>
-      <tr class="<%= css_class %>">
-        <td><%= renter.id %></td>
-        <td><%= link_to renter.to_label, renter %></td>
-        <td>
-          <%= renter_actual_contracts(renter) %>
-          <%= link_to 'Все договора арендатора', contracts_path(q: {renter_id_eq: renter.id}) %>
-        </td>
-        <td>
-          <%= currency renter.account %><br />
-          <%= currency renter.forecast %>
-        <td>
-          <%= link_to edit_renter_path(renter), class: 'e-control-links' do %>
-            <%= icon('edit m-r-1') %>Редактировать
-          <% end %>
-          <br />
-          <%= link_to renter, method: :delete, data: { confirm: 'Действительно хотите удалить арендатора?' }, class: 'e-control-links' do %>
-            <%= icon('remove m-r-1') %>Удалить
-          <% end %>
-        </td>
+<div class="table-responsive">
+  <table id="ransack-table" class="table m-t-1">
+    <thead class="thead-inverse">
+      <tr>
+        <th>id</th>
+        <th>Название</th>
+        <th>Договора</th>
+        <th>Платежи</th>
+        <th>Счёт<br />Долг</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% total_a = 0 %>
+      <% total_b = 0 %>
+      <% @renters.each do |renter| %>
+        <% total_a += renter.account %>
+        <% total_b += renter.forecast %>
+        <% css_class = case %>
+        <% when renter.forecast > 0 %>
+          <% 'table-danger' %>
+        <% when renter.account > 0 %>
+          <% 'table-success' %>
+        <% end %>
+        <tr class="<%= css_class %>">
+          <td><%= renter.id %></td>
+          <td><%= link_to renter.to_label, renter %></td>
+          <td>
+            <%= render 'contracts', renter: renter %>
+          </td>
+          <td>
+            <%= render 'payments', renter: renter %>
+          </td>
+          <td>
+            <%= render 'money', renter: renter %>
+          </td>
+          <td>
+            <%= render 'controls', renter: renter %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot class="thead-inverse">
+      <th>
+      </th>
+      <th>
+      </th>
+      <th colspan="2">
+        <div>Итого на всех счетах:</div>
+        <div>Итого общий долг:</div>
+      </th>
+      <th colspan="2">
+        <div><%= currency total_a %></div>
+        <div><%= currency total_b %></div>
+      </th>
+    </tfoot>
+    </tfoot>
+  </table>
+</div>

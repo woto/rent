@@ -5,11 +5,20 @@ class Contract < ApplicationRecord
   include ToLabel
 
   validate :date_end, :check_date_end_lt_date_start
-  validate :area, :validate_area_rented_once_at_time
+  validate :area, :validate_area_rented_once_at_time, if: -> {area}
   validates :title, :renter, :area, :rate, presence: true
   validates :rate, numericality: {greater_than: 0}
 
-  scope :actual, -> {where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'")}
+  scope :today_in_range, -> {where("date_start <= '#{Date.today}' AND date_end >= '#{Date.today}'")}
+  scope :date_end_in_future, -> {where("date_end >= '#{Date.today}'")}
+
+  def today_in_range?
+    date_start <= Date.today && date_end >= Date.today
+  end
+
+  def date_end_in_future?
+    date_end >= Date.today
+  end
 
   private
 

@@ -46,9 +46,9 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.use :label, class: 'col-sm-8 form-control-label'
+    b.use :label, class: 'col-sm-4 form-control-label'
 
-    b.wrapper tag: 'div', class: 'col-sm-16' do |ba|
+    b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.wrapper tag: 'div', html: {"data-toggle" => 'buttons'}, class: 'btn-group btn-group-justified' do |bb|
         bb.use :input
       end
@@ -71,8 +71,8 @@ SimpleForm.setup do |config|
   end
 
   config.wrappers :horizontal_custom_file, tag: 'div', class: 'form-group row', error_class: 'has-danger' do |b|
-    b.use :label, class: 'col-sm-8 form-control-label'
-    b.wrapper tag: 'div', class: 'col-sm-16' do |ba|
+    b.use :label, class: 'col-sm-4 form-control-label'
+    b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.wrapper tag: :label, class: 'custom-file' do |bb|
         bb.use :input, class: 'custom-file-input'
         bb.wrapper tag: :span, class: 'custom-file-control' do end
@@ -96,9 +96,9 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'col-sm-8 form-control-label'
+    b.use :label, class: 'col-sm-4 form-control-label'
 
-    b.wrapper tag: 'div', class: 'col-sm-16' do |ba|
+    b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.use :input, class: 'form-control'
       ba.use :error, wrap_with: { tag: 'p', class: 'b-error text-help' }, class: 'form-control-danger'
       ba.use :hint,  wrap_with: { tag: 'p', class: 'b-help text-muted' }
@@ -110,9 +110,9 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.optional :maxlength
     b.optional :readonly
-    b.use :label, class: 'col-sm-8 form-control-label'
+    b.use :label, class: 'col-sm-4 form-control-label'
 
-    b.wrapper tag: 'div', class: 'col-sm-16' do |ba|
+    b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: 'p', class: 'b-error text-help' }, class: 'form-control-danger'
       ba.use :hint,  wrap_with: { tag: 'p', class: 'b-help text-muted' }
@@ -123,7 +123,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper tag: 'div', class: 'col-sm-offset-8 col-sm-16' do |wr|
+    b.wrapper tag: 'div', class: 'col-sm-offset-4 col-sm-8' do |wr|
       wr.wrapper tag: 'div', class: 'checkbox' do |ba|
         ba.use :label_input
       end
@@ -137,9 +137,9 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.use :label, class: 'col-sm-8 form-control-label'
+    b.use :label, class: 'col-sm-4 form-control-label'
 
-    b.wrapper tag: 'div', class: 'col-sm-16' do |ba|
+    b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: 'p', class: 'b-error text-help' }, class: 'form-control-danger'
       ba.use :hint,  wrap_with: { tag: 'p', class: 'b-help text-muted' }
@@ -170,6 +170,18 @@ SimpleForm.setup do |config|
       ba.use :hint,  wrap_with: { tag: 'p', class: 'b-help text-muted' }
     end
   end
+
+  config.wrappers :horizontal_multi_select, tag: 'div', class: 'form-group row', error_class: 'has-danger' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'col-sm-4 form-control-label'
+    b.wrapper tag: 'div', class: 'col-sm-8 form-inline' do |ba|
+      ba.use :input, class: 'form-control'
+      ba.use :error, wrap_with: { tag: 'p', class: 'b-error text-help' }, class: 'form-control-danger'
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'b-help text-muted' }
+    end
+  end
+
   # Wrappers for forms and inputs using the Bootstrap toolkit.
   # Check the Bootstrap docs (http://getbootstrap.com)
   # to learn about the different styles for forms and inputs,

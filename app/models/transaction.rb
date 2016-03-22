@@ -6,6 +6,7 @@ class Transaction < ApplicationRecord
 
   validates :amount, presence: true
   validates :amount, numericality: true
+  validates :amount, exclusion: { in: [0], message: 'Не должно быть равно 0' }
 
   before_create :fill_attributes
   after_create :change_renter_account

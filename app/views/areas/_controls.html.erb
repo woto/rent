@@ -1,0 +1,8 @@
+<%= link_to edit_area_path(area), class: 'e-control-links' do %>
+  <%= icon('edit m-r-1') %>Редактировать
+<% end %>
+<br />
+<%= link_to area, method: :delete, data: { confirm: 'Действительно хотите удалить торговую площадь?' }, class: 'e-control-links' do %>
+  <%= icon('remove m-r-1') %>Удалить
+<% end %>
+

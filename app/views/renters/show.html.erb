@@ -2,26 +2,24 @@
   <h1>Просмотр арендатора <%= @renter.to_label %></h1>
 <% end %>
 
-<p>
-  <%= renter_actual_contracts(@renter) %>
-</p>
-<p>
-  <strong>Все договора арендатора:</strong>
-  <%= link_to 'Договора', contracts_path(q: {renter_id_eq: @renter.id}) %>
-</p>
-<p>
-  <strong>Счёт:</strong>
-  <%= currency @renter.account %>
-</p>
-<p>
-  <strong>Прогноз:</strong>
-  <%= currency @renter.forecast %>
-</p>
+<div class="m-b-1">
+  <strong>Договора:</strong><br />
+  <%= render 'contracts', renter: @renter %>
+</div>
+
+<div class="m-b-1">
+  <strong>Платежи:</strong><br />
+  <%= render 'payments', renter: @renter %>
+</div>
+
+<div class="m-b-1">
+  <strong>Счёт, Долг:</strong><br />
+  <%= render 'money', renter: @renter %>
+</div>
 
 <p>
   <%= link_to 'Новый договор для этого арендатора', new_contract_path(contract: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
   <%= link_to 'Внести средства на счёт', new_transaction_path(transaction: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
 </p>
 
-<%= link_to 'Edit', edit_renter_path(@renter) %> |
-<%= link_to 'Back', renters_path %>
+<%= render 'controls', renter: @renter %>

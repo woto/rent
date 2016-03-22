@@ -1,0 +1,2 @@
+<%= area_date_end_in_future_contracts(area) %>
+<%= link_to('Договора площади', contracts_path(anchor: 'ransack-table', q: {area_id_eq: area.id})) if area.contracts.any? %>

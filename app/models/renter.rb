@@ -2,18 +2,21 @@ class Renter < ApplicationRecord
   include ToLabel
 
   has_many :contracts, dependent: :restrict_with_error
+  has_many :transactions
   validates :title, presence: true
   before_destroy :check_account_noteq_zero
 
-  def forecast
-    account - actual_contracts.sum do |contract|
-      diff_date = contract.date_end + 1.day - Date.today
-      contract.rate * (diff_date >= 30 ? 30 : diff_date)
-    end
+  def today_contracts_rate
+    contracts.today_in_range.sum("rate")
   end
 
-  def actual_contracts
-    contracts.actual
+  def forecast
+    contracts.date_end_in_future.sum do |contract|
+      start_date = contract.date_start > Date.today ? contract.date_start : Date.today
+      end_date = contract.date_end + 1.day
+      diff_date = end_date - start_date
+      contract.rate * (diff_date >= 30 ? 30 : diff_date)
+    end - account
   end
 
   def check_account_noteq_zero

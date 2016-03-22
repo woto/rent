@@ -1,0 +1,13 @@
+<div>
+  <%= currency renter.account %>
+</div>
+
+<div>
+  <%= currency(renter.forecast) if renter.forecast > 0 %>
+</div>
+
+<% if false %>
+<div>
+  <%= currency renter.today_contracts_rate %>
+</div>
+<% end %>

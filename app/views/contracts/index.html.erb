@@ -2,71 +2,64 @@
   <h1>Договора</h1>
 <% end %>
 
-<%= search_form_for @q, class: 'form-inline m-b-2' do |f| %>
-  <div class="form-group">
-    <%= f.search_field :id_eq, class: 'form-control', placeholder: 'id', style: 'width: 3rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.search_field :title_cont, class: 'form-control', placeholder: 'Название содержит', style: 'width: 12rem' %>
-  </div>
-  <div class="form-group">
-    <%= f.collection_select :renter_id_eq, Renter.all, :id, :to_label, {include_blank: true}, {class: 'custom-select', style: 'width: 12rem'} %>
-  </div>
-  <div class="form-group">
-    <%= f.collection_select :area_id_eq, Area.all, :id, :to_label, {include_blank: true}, {class: 'custom-select', style: 'width: 12rem'} %>
-  </div>
-  <div class="form-group">
+<%= ransack_search do %>
+  <%= search_form_for @q, wrapper: :horizontal_form, wrapper_mappings: {
+    date: :horizontal_multi_select,
+    time: :horizontal_multi_select
+  } do |f| %>
+    <%= f.input :id_eq %>
+    <%= f.input :title_cont %>
+    <%= f.input :renter_id_eq, collection: Renter.all, include_blank: true, input_html: {class: 'custom-select'} %>
+    <%= f.input :area_id_eq, collection: Area.all, include_blank: true, input_html: {class: 'custom-select'} %>
+    <%= f.input :rate_gteq %>
+    <%= f.input :rate_lteq %>
+    <%= f.input :date_start_gteq, as: :date, include_blank: true %>
+    <%= f.input :date_start_lteq, as: :date, include_blank: true %>
+    <%= f.input :date_end_gteq, as: :date, include_blank: true %>
+    <%= f.input :date_end_lteq, as: :date, include_blank: true %>
     <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
-  </div>
+  <% end %>
 <% end %>
 
 <%= link_to 'Новый договор', new_contract_path %>
 
-<table class="table m-t-1">
-  <thead class="thead-inverse">
-    <tr>
-      <th>id</th>
-      <th>Название</th>
-      <th>Арендатор</th>
-      <th>Площадь</th>
-      <th>Ставка в день</th>
-      <th>Начало, Конец</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @contracts.each do |contract| %>
-      <% css_class = 'table-active' if contract.date_start <= Date.today && contract.date_end >= Date.today %>
-      <tr class="<%= css_class %>">
-        <td><%= contract.id %></td>
-        <td><%= link_to contract.title, contract_path(contract) %></td>
-        <td>
-          <%= link_to renter_path(contract.renter) do %>
-            <%= contract.renter.to_label %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to area_path(contract.area) do %>
-            <%= contract.area.to_label %><br />
-            <%= image_tag contract.area.spotted_map, style: 'width: 200px' %><% end %><br />
-          <span class="text-muted"><%= contract.area.square %> м<sup>2</sup> - <%= contract.area.ref %></span>
-        </td>
-        <td><%= currency contract.rate %></td>
-        <td>
-          <%= l contract.date_start %><br />
-          <%= l contract.date_end %>
-        </td>
-        <td>
-          <%= link_to edit_contract_path(contract), class: 'e-control-links' do %>
-            <%= icon('edit m-r-1') %>Редактировать
-          <% end %>
-          <br />
-          <%= link_to contract, method: :delete, data: { confirm: 'Действительно хотите удалить договор?' }, class: 'e-control-links' do %>
-            <%= icon('remove m-r-1') %>Удалить
-          <% end %>
-        </td>
+<div class="table-responsive">
+  <table id="ransack-table" class="table m-t-1">
+    <thead class="thead-inverse">
+      <tr>
+        <th>id</th>
+        <th>Название</th>
+        <th>Арендатор</th>
+        <th>Площадь</th>
+        <th>Ставка в день</th>
+        <th>Начало<br />Конец</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @contracts.each do |contract| %>
+        <% css_class = 'table-active' if contract.date_end >= Date.today %>
+        <tr class="<%= css_class %>">
+          <td><%= contract.id %></td>
+          <td><%= link_to contract.title, contract_path(contract) %></td>
+          <td><%= link_to contract.renter.to_label, renter_path(contract.renter) %></td>
+          <td>
+            <%= link_to area_path(contract.area) do %>
+              <%= contract.area.to_label %><br />
+              <%= image_tag contract.area.spotted_map, style: 'width: 200px' %><% end %><br />
+              <span class="text-muted"><%= contract.area.square %> м<sup>2</sup> - <%= contract.area.ref %></span>
+          </td>
+          <td><%= currency contract.rate %></td>
+          <td>
+            <div><%= l contract.date_start %></div>
+            <div><%= l contract.date_end %></div>
+          </td>
+          <td>
+            <%= render 'controls', contract: contract %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

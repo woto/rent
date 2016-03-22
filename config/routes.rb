@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'dashboard/index'
+
   resources :transactions
   resources :contracts
-  root to: 'maps#index'
 
   resources :areas do
     get :find__id__by__map_id__and__ref, on: :collection
@@ -14,4 +15,7 @@ Rails.application.routes.draw do
 
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
+
+  root to: 'dashboard#index'
+
 end

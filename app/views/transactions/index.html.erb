@@ -2,46 +2,71 @@
   <h1>Транзакции</h1>
 <% end %>
 
+<%= ransack_search do %>
+  <%= search_form_for @q, wrapper: :horizontal_form, wrapper_mappings: {
+    date: :horizontal_multi_select,
+    time: :horizontal_multi_select
+  } do |f| %>
+    <%= f.input :id_eq %>
+    <%= f.input :contract_id_eq, collection: Contract.all, include_blank: true, input_html: {class: 'custom-select'} %>
+    <%= f.input :renter_id_eq, collection: Renter.all, include_blank: true, input_html: {class: 'custom-select'} %>
+    <%= f.input :area_id_eq, collection: Area.all, include_blank: true, input_html: {class: 'custom-select'} %>
+    <%= f.input :amount_gteq %>
+    <%= f.input :amount_lteq %>
+    <%= f.input :account_were_gteq %>
+    <%= f.input :account_were_lteq %>
+    <%= f.input :account_gteq %>
+    <%= f.input :account_lteq %>
+    <%= f.input :created_at_gteq, as: :date, include_blank: true %>
+    <%= f.input :created_at_lteq, as: :date, include_blank: true %>
+    <div class="form-group m-b-0">
+      <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= link_to 'Новая транзакция', new_transaction_path %>
 
-<table class="table m-t-1">
-  <thead class="thead-inverse">
-    <tr>
-      <th>id</th>
-      <th>Договор</th>
-      <th>Арендатор</th>
-      <th>Площадь</th>
-      <th>Сумма</th>
-      <th>Было, Стало</th>
-      <th>Дата</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @transactions.each do |transaction| %>
+<div class="table-responsive">
+  <table id="ransack-table" class="table m-t-1">
+    <thead class="thead-inverse">
       <tr>
-        <td><%= transaction.id %></td>
-        <td>
-          <%= transaction.contract_string %><br />
-          <%= link_to(transaction.contract.to_label, contract_path(transaction.contract)) if transaction.contract %>
-        </td>
-        <td>
-          <%= transaction.renter_string %><br />
-          <%= link_to(transaction.renter.to_label, renter_path(transaction.renter)) if transaction.renter %>
-        </td>
-        <td>
-          <%= transaction.area_string %><br />
-          <%= link_to(transaction.area.to_label, area_path(transaction.area)) if transaction.area %>
-        </td>
-        <td><%= currency transaction.amount %></td>
-        <td>
-          <%= currency transaction.account_were %><br />
-          <%= currency transaction.account %>
-        </td>
-        <td>
-          <%= l transaction.created_at, format: :long %>
-        </td>
+        <th>id</th>
+        <th>Договор</th>
+        <th>Арендатор</th>
+        <th>Площадь</th>
+        <th>Сумма</th>
+        <th>Было<br />Стало</th>
+        <th>Дата</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <tr>
+          <td><%= transaction.id %></td>
+          <td>
+            <%= transaction.contract_string %><br />
+            <%= link_to(transaction.contract.to_label, contract_path(transaction.contract)) if transaction.contract %>
+          </td>
+          <td>
+            <%= transaction.renter_string %><br />
+            <%= link_to(transaction.renter.to_label, renter_path(transaction.renter)) if transaction.renter %>
+          </td>
+          <td>
+            <%= transaction.area_string %><br />
+            <%= link_to(transaction.area.to_label, area_path(transaction.area)) if transaction.area %>
+          </td>
+          <td><%= currency transaction.amount %></td>
+          <td>
+            <%= currency transaction.account_were %><br />
+            <%= currency transaction.account %>
+          </td>
+          <td>
+            <%= l transaction.created_at, format: :long %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

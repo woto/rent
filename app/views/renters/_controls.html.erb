@@ -1,0 +1,8 @@
+<%= link_to edit_renter_path(renter), class: 'e-control-links' do %>
+  <%= icon('edit m-r-1') %>Редактировать
+<% end %>
+<br />
+<%= link_to renter, method: :delete, data: { confirm: 'Действительно хотите удалить арендатора?' }, class: 'e-control-links' do %>
+  <%= icon('remove m-r-1') %>Удалить
+<% end %>
+

@@ -10,9 +10,15 @@ ru:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: <button class="close" data-dismiss="alert">&times;</button>Невозможно продолжить, т.к. форма заполнена не корректно
+    placeholders:
+      defaults:
     labels:
       defaults:
+        id_eq: id
         title: Название
+        title_cont: Название содержит
+        renter: Арендатор
+        amount: Сумма
       area:
         map: Территория
         ref: Служенбый номер

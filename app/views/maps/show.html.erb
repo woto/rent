@@ -6,10 +6,9 @@
   <%== @map.dashboard_map.read.force_encoding("utf-8") %>
 </div>
 
-<p>
-  <strong>Торговые площади:</strong>
-  <%= link_to 'Торговые площади', areas_path(q: {map_id_eq: @map.id}) %>
-</p>
+<div class="m-b-1">
+  <strong>Торговые площади:</strong><br />
+  <%= render 'areas', map: @map %>
+</div>
 
-<%= link_to 'Edit', edit_map_path(@map) %> |
-<%= link_to 'Back', maps_path %>
+<%= render 'controls', map: @map %>

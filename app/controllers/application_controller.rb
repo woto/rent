@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
+  helper_method :ransack_params
+
   private
 
   def ransack_params

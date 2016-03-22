@@ -2,8 +2,8 @@ ru:
   helpers:
     submit:
       map:
-        create: 'Создать карту'
-        update: 'Сохранить карту'
+        create: 'Создать территорию'
+        update: 'Сохранить территорию'
       area:
         create: 'Создать площадь'
         update: 'Сохранить площадь'

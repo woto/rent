@@ -24,7 +24,7 @@
           &#9776;
         </button>
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
-          <a class="navbar-brand" href="#">Аренда</a>
+          <%= link_to "Аренда", root_path, class: "navbar-brand" %>
           <%= render 'navbar_nav' %>
           <!--
           <form class="form-inline pull-xs-right">
@@ -37,6 +37,7 @@
 
       <div class="alert alert-success" role="alert"><%= notice %></div>
       <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <div class="alert alert-danger" role="alert"><%= Rails.cache.read('maintenance') %></div>
 
       <%= yield %>
 

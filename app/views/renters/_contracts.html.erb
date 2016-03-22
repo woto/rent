@@ -1,0 +1,4 @@
+<%= renter_actual_contracts(renter) %>
+<% if renter.contracts.any? %> 
+  <%= link_to('Все договора арендатора', contracts_path(anchor: 'ransack-table', q: {renter_id_eq: renter.id})) %>
+<% end %>

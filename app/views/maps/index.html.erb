@@ -4,37 +4,35 @@
 
 <%= link_to 'Новая территория', new_map_path %>
 
-<table class="table m-t-1">
-  <thead class="thead-inverse">
-    <tr>
-      <th>id</th>
-      <th>Название</th>
-      <th>Торговые площади</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @maps.each do |map| %>
-      <% css_class = 'table-active' if map.areas.any? %>
-      <tr class="<%= css_class %>">
-        <td><%= map.id %></td>
-        <td>
-          <%= link_to map do %>
-            <%= map.to_label %><br />
-            <%= image_tag map.dashboard_map, style: 'width: 200px' %><% end %>
-        </td>
-        <td><%= link_to 'Торговые площади', areas_path(q: {map_id_eq: map.id}) %></td>
-        <td>
-          <%= link_to edit_map_path(map), class: 'e-control-links' do %>
-            <%= icon('edit m-r-1') %>Редактировать
-          <% end %>
-          <br />
-          <%= link_to map, method: :delete, data: { confirm: 'Действительно хотите удалить территорию?' }, class: 'e-control-links' do %>
-            <%= icon('remove m-r-1') %>Удалить
-          <% end %>
-        </td>
+<div class="table-responsive">
+  <table id="ransack-table" class="table m-t-1">
+    <thead class="thead-inverse">
+      <tr>
+        <th>id</th>
+        <th>Название</th>
+        <th>Торговые площади</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @maps.each do |map| %>
+        <% css_class = 'table-active' if map.areas.any? %>
+        <tr class="<%= css_class %>">
+          <td><%= map.id %></td>
+          <td>
+            <%= link_to map do %>
+              <%= map.to_label %><br />
+              <%= image_tag map.dashboard_map, style: 'width: 200px' %><% end %>
+          </td>
+          <td>
+            <%= render 'areas', map: map %>
+          </td>
+          <td>
+            <%= render 'controls', map: map %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
