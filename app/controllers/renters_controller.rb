@@ -6,7 +6,7 @@ class RentersController < ApplicationController
   def index
     @q = Renter.ransack(ransack_params)
     @q.sorts = 'id desc' if @q.sorts.empty?
-    @renters = @q.result
+    @renters = @q.result.page(params[:page])
   end
 
   # GET /renters/1

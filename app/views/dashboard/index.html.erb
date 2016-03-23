@@ -4,12 +4,14 @@
     <div class="b-svg-map m-y-2 text-xs-center" data-map-id='<%= map.id %>'>
       <% memoized_doc = map.memoized_doc %>
       <% map.areas.each do |area| %>
-        <% area.contracts.date_end_in_future.each do |contract| %>
+        <% area.contracts.today_in_range.each do |contract| %>
           <% found = memoized_doc.css("##{contract.area.ref} *").first %>
             <% case success_or_danger(contract.renter) %>
             <% when 'success' %>
+              <% debugger %>
               <% found['style'] = 'fill: #008000' %>
             <% when 'danger' %>
+              <% debugger %>
               <% found['style'] = 'fill: #FF0000' %>
             <% end %>
         <% end %>

@@ -4,7 +4,7 @@ class MapsController < ApplicationController
   # GET /maps
   # GET /maps.json
   def index
-    @maps = Map.order(id: :desc)
+    @maps = Map.order(id: :desc).page(params[:page])
   end
 
   # GET /maps/1

@@ -6,7 +6,7 @@ class ContractsController < ApplicationController
   def index
     @q = Contract.ransack(ransack_params)
     @q.sorts = 'id desc' if @q.sorts.empty?
-    @contracts = @q.result
+    @contracts = @q.result.page(params[:page])
   end
 
   # GET /contracts/1

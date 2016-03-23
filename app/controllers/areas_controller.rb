@@ -22,7 +22,7 @@ class AreasController < ApplicationController
   def index
     @q = Area.ransack(ransack_params)
     @q.sorts = 'id desc' if @q.sorts.empty?
-    @areas = @q.result
+    @areas = @q.result.page(params[:page])
   end
 
   # GET /areas/1
