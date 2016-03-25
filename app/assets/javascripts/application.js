@@ -47,21 +47,24 @@ $(document).on('click', function(e){
       var list = "";
 
       $.get( "/areas/find__id__by__map_id__and__ref", { map_id: map_id, ref: $target.closest('g').attr('id') } ).done(function(data){
+        var params = {
+          previous_url: encodeURI(current_uri)
+        };
+
         if(data != null) {
-          list = '<li><a href="/areas/' + data.id + '">Торговая площадь: ' + data.title + '</a></li>';
+          list = '<li><a href="/areas/' + data.id + '?' + $.param(params) + '">Торговая площадь: ' + data.title + '</a></li>';
           $.get('/areas/' + data.id + '/today_renter').done(function(data){
             if(data != null) {
-              list = list + '<li><a href="/renters/'+data.id+'">Арендатор: '+data.title+'</a></li>';
+              list = list + '<li><a href="/renters/'+data.id + '?' + $.param(params) + '">Арендатор: '+data.title+'</a></li>';
             }
             callback(list, $b_svg_map, e);
           })
         } else {
-          var params = $.param({
+          params = $.extend(params,{
             map_id: map_id,
             ref: $target.closest('g').attr('id'),
-            previous_url: encodeURI(current_uri)
           });
-          list = '<li><a href="/areas/new?' + params + '">Новая площадь</a></li>';
+          list = '<li><a href="/areas/new?' + $.param(params) + '">Новая площадь</a></li>';
           callback(list, $b_svg_map, e);
         }
       });
