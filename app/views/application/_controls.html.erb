@@ -1,0 +1,7 @@
+<%= link_to polymorphic_path([:edit, object], previous_url: request.fullpath), class: 'e-control-links' do %>
+  <%= icon('edit') %>
+<% end %>
+
+<%= link_to polymorphic_path(object, previous_url: request.fullpath), method: :delete, data: { confirm: "Действительно хотите удалить \"#{h object.to_label}\"?" }, class: 'e-control-links' do %>
+  <%= icon('remove') %>
+<% end %>

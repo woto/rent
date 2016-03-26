@@ -1,18 +1,23 @@
 <% last_payment = renter.transactions.where('amount > 0').last %>
 
 <% if last_payment %>
-  <p class="m-b-0">
+  <div class="text-sm">
     <%= link_to currency(last_payment.amount), transactions_path(anchor: 'ransack-table', q: {id_eq: last_payment.id}) %>
-  </p>
-  <p class="m-b-0">
+    <p class="text-muted">
+      <%= l last_payment.created_at, format: :short %>
+    </p>
+  </div>
+  <div class="m-b-0">
     <%= link_to 'Все платежи арендатора', transactions_path(anchor: 'ransack-table', q: {renter_id_eq: renter.id, amount_gteq: 0}) %>
-  </p>
+  </div>
 <% end %>
 
-<% last_withdraw = renter.transactions.where('amount < 0').last %>
+<% if false %>
+  <% last_withdraw = renter.transactions.where('amount < 0').last %>
 
-<% if last_withdraw %>
-  <p class="m-b-0">
-    <%= link_to 'Все списания арендатора', transactions_path(anchor: 'ransack-table', q: {renter_id_eq: renter.id, amount_lteq: 0}) %>
-  </p>
+  <% if last_withdraw %>
+    <div class="m-b-0">
+      <%= link_to 'Все списания арендатора', transactions_path(anchor: 'ransack-table', q: {renter_id_eq: renter.id, amount_lteq: 0}) %>
+    </div>
+  <% end %>
 <% end %>

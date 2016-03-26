@@ -1,4 +1,8 @@
 ru:
+  date:
+    formats:
+      with_year: "%d %B %Y"
+      without_year: "%d %B"
   helpers:
     submit:
       map:
@@ -13,3 +17,5 @@ ru:
       contract:
         create: 'Создать договор'
         update: 'Сохранить договор'
+      transaction:
+        create: 'Создать транзакцию'

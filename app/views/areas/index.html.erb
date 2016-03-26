@@ -17,7 +17,7 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Новая торговая площадь', new_area_path %>
+<%= link_to 'Новая торговая площадь', new_area_path(previous_url: request.fullpath) %>
 
 <div class="table-responsive">
   <table id="ransack-table" class="table m-t-1">
@@ -36,11 +36,8 @@
         <% css_class = 'table-active' if area.contracts.date_end_in_future.any? %>
         <tr class="<%= css_class %>">
           <td><%= area.id %></td>
-          <td>
-            <%= link_to area do %>
-              <%= area.to_label %><br />
-              <%= image_tag area.spotted_map, style: 'width: 200px' %><% end %><br />
-            <span class="text-muted"><%= area.square %> м<sup>2</sup> - <%= area.ref %></span>
+          <td class="font-weight-bold">
+            <%= render 'area', area: area %>
           </td>
           <td>
             <%= render 'map', area: area %>
@@ -49,7 +46,7 @@
             <%= render 'contracts', area: area %>
           </td>
           <td>
-            <%= render 'controls', area: area %>
+            <%= render 'controls', object: area %>
           </td>
         </tr>
       <% end %>

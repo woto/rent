@@ -6,13 +6,13 @@ class TransactionsController < ApplicationController
   def index
     @q = Transaction.ransack(ransack_params)
     @q.sorts = 'id desc' if @q.sorts.empty?
-    @transactions = @q.result
+    @transactions = @q.result.page(params[:page])
   end
 
   ## GET /transactions/1
   ## GET /transactions/1.json
-  #def show
-  #end
+  def show
+  end
 
   # GET /transactions/new
   def new
@@ -30,7 +30,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to transactions_url, notice: 'Транзакция была успешно создана' }
+        format.html { redirect_to  session[:previous_url], notice: 'Транзакция была успешно создана' }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new }

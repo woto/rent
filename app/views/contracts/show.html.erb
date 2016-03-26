@@ -4,7 +4,7 @@
 
 <div class="m-y-2">
   <%== @contract.area.spotted_map.read.force_encoding("utf-8") %><br />
-  <span class="text-muted"><%= @contract.area.square %> м<sup>2</sup> - <%= @contract.area.ref %></span>
+  <span class="text-muted text-sm"><%= @contract.area.square %> м<sup>2</sup> - <%= @contract.area.ref %></span>
 </div>
 
 <div class="m-b-1">
@@ -18,18 +18,9 @@
 </div>
 
 <div class="m-b-1">
-  <strong>Ставка в день:</strong><br />
-  <%= currency @contract.rate %>
+  <strong>Договор:</strong><br />
+  <%= render 'agreement', contract: @contract %>
+  <%= render 'payments', contract: @contract %>
 </div>
 
-<div class="m-b-1">
-  <strong>Начало:</strong><br />
-  <%= l @contract.date_start %>
-</div>
-
-<div class="m-b-1">
-  <strong>Конец:</strong><br />
-  <%= l @contract.date_end %>
-</div>
-
-<%= render 'controls', contract: @contract %>
+<%= render 'show_controls', object: @contract %>

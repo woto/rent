@@ -1,28 +1,20 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
-
-<% total_forecast = 0 %>
-<% total_account = 0 %>
-
-<% if false %>
-  <ul>
-    <% Renter.all.each do |renter| %>
-      <% total_account += renter.account %>
-      <% total_forecast += renter.forecast %>
-      <% if renter.forecast < 0 %>
-        <li><%= link_to renter.to_label, renter %></li>
+<% Map.all.each do |map| %>
+  <div class="m-b-3">
+    <h5 class="m-b-2"><%= map.title %></h5>
+    <div class="b-svg-map m-y-2 text-xs-center" data-map-id='<%= map.id %>'>
+      <% memoized_doc = map.memoized_doc %>
+      <% map.areas.each do |area| %>
+        <% area.contracts.date_end_in_future.each do |contract| %>
+          <% found = memoized_doc.css("##{contract.area.ref} *").first %>
+            <% case success_or_danger(contract.renter) %>
+            <% when 'success' %>
+              <% found['style'] = 'fill: #008000' %>
+            <% when 'danger' %>
+              <% found['style'] = 'fill: #FF0000' %>
+            <% end %>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
-
-  <table class="table">
-    <tr>
-      <td>Итого на счетах:</td>
-      <td><%= currency total_account %></td>
-    </tr>
-    <tr>
-      <td>Итого долг:</td>
-      <td><%= currency total_forecast %></td>
-    </tr>
-  </table>
+      <%== memoized_doc.to_s %>
+    </div>
+  </div>
 <% end %>

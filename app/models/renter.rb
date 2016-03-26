@@ -15,8 +15,8 @@ class Renter < ApplicationRecord
       start_date = contract.date_start > Date.today ? contract.date_start : Date.today
       end_date = contract.date_end + 1.day
       diff_date = end_date - start_date
-      contract.rate * (diff_date >= 30 ? 30 : diff_date)
-    end - account
+      contract.rate * (diff_date >= 31 ? 31 : diff_date)
+    end
   end
 
   def check_account_noteq_zero

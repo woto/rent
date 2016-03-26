@@ -7,7 +7,7 @@ $fa-font-path: '/Font-Awesome/fonts';
   fill: yellow !important;
 }
 
-#menu {
+.menu {
   border: 1px solid rgba(0,0,0,.2);
   background: white;
   padding: .5rem;
@@ -25,6 +25,7 @@ body {
 
 .b-svg-map {
   position: relative;
+  background: snow;
 }
 
 .alert:empty {
@@ -40,11 +41,15 @@ body {
 }
 
 .page-header {
-  @extend .m-b-2;
+  @extend .m-b-3;
 }
 
 .e-control-links {
   white-space: nowrap;
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-secondary;
+  width: 30px;
 }
 
 .b-error {
@@ -55,10 +60,16 @@ body {
   @extend .m-b-0;
 }
 
-//.table-active, .table-active > th, .table-active > td {
-//  background-color: #E4E4E4;
-//}
-//
-//.table-danger, .table-danger > th, .table-danger > td {
-//  background-color: #E69393;
-//}
+.text-sm {
+  font-size: .85rem;
+}
+
+.text-xs {
+  font-size: .7rem
+}
+
+.e-map {
+  @extend .card;
+  padding: .5rem;
+  max-width: 250px;
+}

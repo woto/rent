@@ -15,19 +15,34 @@ module ApplicationHelper
   end
 
   def area_date_end_in_future_contracts(area)
-    capture do
+    content_tag :div, class: 'text-sm m-b-1' do
       area.contracts.date_end_in_future.each do |contract|
-        concat link_to(contract.to_label, contract_path(contract))
-        concat "<br />".html_safe
+        concat(content_tag(:p, class: 'm-b-0') do
+          link_to(contract.to_label, contract_path(contract))
+        end)
+      end
+      if(area.today_contracts_rate > 0)
+        concat(content_tag(:p, class: 'text-muted') do
+          currency area.today_contracts_rate
+        end)
       end
     end
   end
 
-  def renter_actual_contracts(renter)
-    capture do
+  def renter_date_end_in_future_contracts(renter)
+    content_tag :div, class: 'text-sm m-b-1' do
       renter.contracts.date_end_in_future.each do |contract|
-        concat link_to(contract.to_label, contract_path(contract))
-        concat "<br />".html_safe
+        concat(content_tag(:p, class: 'm-b-0') do 
+          concat(link_to(contract_path(contract)) do
+            "#{contract.to_label} (#{clever_date contract.date_start} - #{clever_date contract.date_end})"
+          end)
+        end)
+        #concat "<br />".html_safe
+      end
+      if(renter.today_contracts_rate > 0)
+        concat(content_tag(:p, class: 'text-muted') do
+          currency renter.today_contracts_rate
+        end)
       end
     end
   end
@@ -36,10 +51,10 @@ module ApplicationHelper
     content_tag :div, class: 'row' do
       content_tag :div, class: 'col-md-7' do
         content_tag :div, class: 'card' do
-          concat(content_tag(:div, class: 'card-header') do
+          concat(content_tag(:div, class: 'card-header', data: {toggle: 'collapse', target: '#ransack-search'}, style: 'cursor: pointer') do
+            concat(icon('filter m-r-1'))
             concat("Поиск")
-            concat(content_tag(:button, class: 'btn btn-secondary btn-sm pull-right',
-                   type: 'button', data: {toggle: 'collapse', target: '#ransack-search'}) do
+            concat(content_tag(:a, class: 'pull-right') do
               icon 'caret-down'
             end)
           end)
@@ -48,6 +63,23 @@ module ApplicationHelper
           end)
         end
       end
+    end
+  end
+
+  def clever_date(date)
+    if date.year == Date.current.year
+      l date, format: :without_year
+    else
+      l date, format: :with_year
+    end
+  end
+
+  def success_or_danger(renter)
+    css_class = case
+    when renter.account - renter.forecast < 0# || (renter.contracts.date_end_in_future.any? && renter.forecast - renter.account  > 0 )
+      'danger'
+    when renter.account > 0
+      'success'
     end
   end
 

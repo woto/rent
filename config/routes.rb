@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :areas do
     get :find__id__by__map_id__and__ref, on: :collection
+    get :today_renter, on: :member
   end
 
   resources :maps

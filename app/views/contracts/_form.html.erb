@@ -1,16 +1,23 @@
-<%= simple_form_for(@contract) do |f| %>
-  <%= f.error_notification %>
+<div class="row">
+  <div class="col-md-8">
+    <%= simple_form_for(@contract, wrapper: :horizontal_form, wrapper_mappings: {
+      date: :horizontal_multi_select,
+      time: :horizontal_multi_select
+    }) do |f| %>
+      <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.association :renter %>
-    <%= f.association :area %>
-    <%= f.input :rate %>
-    <%= f.input :date_start %>
-    <%= f.input :date_end %>
-  </div>
+      <div class="form-inputs">
+        <%= f.input :title %>
+        <%= f.association :renter %>
+        <%= f.association :area %>
+        <%= f.input :rate %>
+        <%= f.input :date_start %>
+        <%= f.input :date_end %>
+      </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn-primary m-y-2' %>
+      <div class="form-actions">
+        <%= f.button :submit, class: 'btn-primary m-y-2' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

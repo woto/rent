@@ -18,35 +18,52 @@
 //
 //= require URI.js/src/URI.js
 
+var callback = function(list, $b_svg_map, e){
+  svg = e.target.getBBox();
+  $('<ul />').attr({class: 'menu'}).
+    css({
+      position: 'absolute',
+      top: svg.y + svg.height/1.5 + $b_svg_map.find('svg').position().top,
+      left: svg.x + svg.width/1.5 + $b_svg_map.find('svg').position().left
+    }).append(list).appendTo($b_svg_map)
+  
+  $(e.target).addClass("on");
+}
+
 $(document).on('click', function(e){
-  $('#menu').remove();
+  $('.menu').remove();
   $('*').removeClass("on");
   $target = $(e.target);
 
-  if($target.closest('.b-svg-map g').length > 0) {
+  $b_svg_map = $target.closest('.b-svg-map')
+  if($b_svg_map.length > 0) {
 
     if($target.is('rect, circle, ellipse, polyline, polygon, path')) {
 
-      var uri = new URI(window.location)
-      var map_id = uri.segment(1)
+      var current_uri = new URI(window.location.pathname)
+      //var map_id = uri.segment(1)
+
+      var map_id = $b_svg_map.data('map-id');
       var list = "";
+
       $.get( "/areas/find__id__by__map_id__and__ref", { map_id: map_id, ref: $target.closest('g').attr('id') } ).done(function(data){
         if(data != null) {
-          list = '<li><a href="/areas/' + data.id + '">' + data.title + '</a></li>';
+          list = '<li><a href="/areas/' + data.id + '">Торговая площадь: ' + data.title + '</a></li>';
+          $.get('/areas/' + data.id + '/today_renter').done(function(data){
+            if(data != null) {
+              list = list + '<li><a href="/renters/'+data.id+'">Арендатор: '+data.title+'</a></li>';
+            }
+            callback(list, $b_svg_map, e);
+          })
         } else {
-          var params = $.param({map_id: map_id, ref: $target.closest('g').attr('id')});
+          var params = $.param({
+            map_id: map_id,
+            ref: $target.closest('g').attr('id'),
+            previous_url: encodeURI(current_uri)
+          });
           list = '<li><a href="/areas/new?' + params + '">Новая площадь</a></li>';
+          callback(list, $b_svg_map, e);
         }
-
-        svg = e.target.getBBox();
-        $('<ul />').attr({id: 'menu'}).
-          css({
-            position: 'absolute',
-            top: svg.y + svg.height/2,
-            left: svg.x + svg.width/2
-          }).append(list).appendTo('.b-svg-map')
-        
-        $(e.target).addClass("on");
       });
     }
   }

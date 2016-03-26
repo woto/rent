@@ -30,7 +30,7 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html { redirect_to @contract, notice: 'Договор был успешно создан.' }
+        format.html { redirect_to session[:previous_url], notice: 'Договор был успешно создан.' }
         format.json { render :show, status: :created, location: @contract }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ContractsController < ApplicationController
   def update
     respond_to do |format|
       if @contract.update(contract_params)
-        format.html { redirect_to @contract, notice: 'Договор был успешно изменен.' }
+        format.html { redirect_to session[:previous_url], notice: 'Договор был успешно изменен.' }
         format.json { render :show, status: :ok, location: @contract }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class ContractsController < ApplicationController
   def destroy
     @contract.destroy
     respond_to do |format|
-      format.html { redirect_to contracts_url, notice: 'Договор был успешно удален.' }
+      format.html { redirect_to session[:previous_url], notice: 'Договор был успешно удален.' }
       format.json { head :no_content }
     end
   end

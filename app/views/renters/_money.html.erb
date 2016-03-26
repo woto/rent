@@ -1,13 +1,9 @@
-<div>
-  <%= currency renter.account %>
-</div>
+<div class="text-<%= success_or_danger(renter) %>">
+  <div>
+    <%= currency renter.account %>
+  </div>
 
-<div>
-  <%= currency(renter.forecast) if renter.forecast > 0 %>
+  <div>
+    <%= currency renter.forecast %>
+  </div>
 </div>
-
-<% if false %>
-<div>
-  <%= currency renter.today_contracts_rate %>
-</div>
-<% end %>

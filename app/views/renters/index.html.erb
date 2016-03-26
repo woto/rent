@@ -14,7 +14,7 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Новый арендатор', new_renter_path %>
+<%= link_to 'Новый арендатор', new_renter_path(previous_url: request.fullpath) %>
 
 <div class="table-responsive">
   <table id="ransack-table" class="table m-t-1">
@@ -35,15 +35,9 @@
       <% @renters.each do |renter| %>
         <% total_a += renter.account %>
         <% total_b += renter.forecast %>
-        <% css_class = case %>
-        <% when renter.forecast > 0 %>
-          <% 'table-danger' %>
-        <% when renter.account > 0 %>
-          <% 'table-success' %>
-        <% end %>
-        <tr class="<%= css_class %>">
+        <tr class="table-<%= success_or_danger(renter) %>">
           <td><%= renter.id %></td>
-          <td><%= link_to renter.to_label, renter %></td>
+          <td class="font-weight-bold"><%= link_to renter.to_label, renter_path(renter, previous_url: request.fullpath) %></td>
           <td>
             <%= render 'contracts', renter: renter %>
           </td>
@@ -54,7 +48,7 @@
             <%= render 'money', renter: renter %>
           </td>
           <td>
-            <%= render 'controls', renter: renter %>
+            <%= render 'controls', object: renter %>
           </td>
         </tr>
       <% end %>
@@ -72,7 +66,6 @@
         <div><%= currency total_a %></div>
         <div><%= currency total_b %></div>
       </th>
-    </tfoot>
     </tfoot>
   </table>
 </div>

@@ -14,12 +14,12 @@
 
 <div class="m-b-1">
   <strong>Счёт, Долг:</strong><br />
-  <%= render 'money', renter: @renter %>
+  <%= render 'money', renter: @renter, css_class: 'success' %>
 </div>
 
 <p>
-  <%= link_to 'Новый договор для этого арендатора', new_contract_path(contract: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
-  <%= link_to 'Внести средства на счёт', new_transaction_path(transaction: {renter_id: @renter.id}), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Новый договор для этого арендатора', new_contract_path(contract: {renter_id: @renter.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Внести средства на счёт', new_transaction_path(transaction: {renter_id: @renter.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>
 </p>
 
-<%= render 'controls', renter: @renter %>
+<%= render 'show_controls', object: @renter %>

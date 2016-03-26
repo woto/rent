@@ -15,17 +15,17 @@
 
 <p>
   <strong>Contract:</strong>
-  <%= @transaction.contract %>
+  <%= @transaction.contract.try(:to_label) %>
 </p>
 
 <p>
   <strong>Renter:</strong>
-  <%= @transaction.renter %>
+  <%= @transaction.renter.try(:to_label) %>
 </p>
 
 <p>
   <strong>Area:</strong>
-  <%= @transaction.area %>
+  <%= @transaction.area.try(:to_label) %>
 </p>
 
 <p>
@@ -33,5 +33,4 @@
   <%= @transaction.amount %>
 </p>
 
-<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
-<%= link_to 'Back', transactions_path %>
+<%= render 'previous_url' %>

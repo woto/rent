@@ -9,10 +9,14 @@ class Area < ApplicationRecord
   validates :map, :square, :title, :ref, presence: true
   validates :square, numericality: true
   validates :ref, uniqueness: { scope: :map_id, message: "На данную область уже назначена торговая площадь." }
-  validate :ref, :check_ref_integrity
+  validate :ref, :check_ref_integrity, if: -> {map && ref.present?}
+
+  def today_contracts_rate
+    contracts.today_in_range.sum("rate")
+  end
 
   def update_spotted_and_dashboard_maps!
-    memoized_doc.css("##{ref} *").first['style'] = 'fill: #008000'
+    memoized_doc.css("##{ref} *").first['style'] = 'fill: #0275D8'
     Tempfile.open(['spotted_map', '.svg']) do |temp_file|
       temp_file.write(memoized_doc.to_s)
       self.spotted_map = temp_file

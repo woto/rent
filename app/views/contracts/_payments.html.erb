@@ -1,0 +1,8 @@
+<% last_withdraw = contract.transactions.where('amount < 0').last %>
+
+<% if last_withdraw %>
+  <p class="m-b-0">
+    <%= link_to 'Все списания по договору', transactions_path(anchor: 'ransack-table', q: {contract_id_eq: contract.id, amount_lteq: 0}) %>
+  </p>
+<% end %>
+

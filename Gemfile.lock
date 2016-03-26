@@ -10,6 +10,15 @@ GIT
       polyamorous (~> 1.2)
 
 GIT
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: 3974ae5f39ce31bfca28d17eccd8daf3ca263aa3
+  branch: master
+  specs:
+    kaminari (1.0.0.alpha)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
+GIT
   remote: git://github.com/svenfuchs/rails-i18n.git
   revision: b97321358035829db74a7dc1e3e46eaacca6aec9
   specs:
@@ -198,6 +207,7 @@ DEPENDENCIES
   dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari!
   listen (~> 3.0.5)
   nokogiri
   puma

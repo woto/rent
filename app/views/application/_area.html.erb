@@ -1,0 +1,6 @@
+<div class="text-xs-center e-map">
+  <%= link_to area_path(area, previous_url: request.fullpath) do %>
+    <p style="margin-bottom: .5rem"><%= area.to_label %></p>
+    <%= image_tag area.spotted_map, style: 'width: 200px' %><% end %><br />
+  <span class="text-sm text-muted"><%= area.square %> м<sup>2</sup> - <%= area.ref %></span>
+</div>

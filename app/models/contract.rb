@@ -1,6 +1,7 @@
 class Contract < ApplicationRecord
   belongs_to :renter
   belongs_to :area
+  has_many :transactions
 
   include ToLabel
 

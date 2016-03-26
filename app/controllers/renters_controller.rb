@@ -30,7 +30,7 @@ class RentersController < ApplicationController
 
     respond_to do |format|
       if @renter.save
-        format.html { redirect_to @renter, notice: 'Арендатор был успешно создан.' }
+        format.html { redirect_to session[:previous_url], notice: 'Арендатор был успешно создан.' }
         format.json { render :show, status: :created, location: @renter }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class RentersController < ApplicationController
   def update
     respond_to do |format|
       if @renter.update(renter_params)
-        format.html { redirect_to @renter, notice: 'Арендатор был успешно изменен.' }
+        format.html { redirect_to session[:previous_url], notice: 'Арендатор был успешно изменен.' }
         format.json { render :show, status: :ok, location: @renter }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class RentersController < ApplicationController
   def destroy
     respond_to do |format|
       if @renter.destroy
-        format.html { redirect_to renters_url, notice: 'Арендатор был успешно удален.' }
+        format.html { redirect_to session[:previous_url], notice: 'Арендатор был успешно удален.' }
         format.json { head :no_content }
       else
         format.html { redirect_to renters_url, alert: 'Невозможно удалить. Либо существуют связанные договора, либо на счету имеются средства.' }

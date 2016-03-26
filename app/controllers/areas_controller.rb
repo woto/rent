@@ -1,10 +1,18 @@
 class AreasController < ApplicationController
-  before_action :set_area, only: [:show, :edit, :update, :destroy]
+  before_action :set_area, only: [:show, :edit, :update, :destroy, :today_renter]
 
   def find__id__by__map_id__and__ref
     respond_to do |format|
       format.json do 
         render json: Area.find_by(map_id: params[:map_id], ref: params[:ref])
+      end
+    end
+  end
+
+  def today_renter
+    respond_to do |format|
+      format.json do
+        render json: @area.contracts.try(:today_in_range).try(:first).try(:renter)
       end
     end
   end
@@ -39,7 +47,7 @@ class AreasController < ApplicationController
     respond_to do |format|
       if @area.save
         @area.update_spotted_and_dashboard_maps!
-        format.html { redirect_to @area, notice: 'Торговая площадь была успешно создана.' }
+        format.html { redirect_to session[:previous_url], notice: 'Торговая площадь была успешно создана.' }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -54,7 +62,7 @@ class AreasController < ApplicationController
     respond_to do |format|
       if @area.update(area_params)
         @area.update_spotted_and_dashboard_maps!
-        format.html { redirect_to @area, notice: 'Торговая площадь была успешно изменена.' }
+        format.html { redirect_to session[:previous_url], notice: 'Торговая площадь была успешно изменена.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -69,7 +77,7 @@ class AreasController < ApplicationController
     respond_to do |format|
       if @area.destroy
         @area.map.redraw_dashboard_map!
-        format.html { redirect_to areas_url, notice: 'Торговая площадь была усешно удалена.' }
+        format.html { redirect_to session[:previous_url], notice: 'Торговая площадь была усешно удалена.' }
         format.json { head :no_content }
       else
         format.html { redirect_to areas_url, alert: 'Невозможно удалить. Удалите сначала связанные торговой площадью договора.' }

@@ -2,7 +2,7 @@
   <h1>Территории</h1>
 <% end %>
 
-<%= link_to 'Новая территория', new_map_path %>
+<%= link_to 'Новая территория', new_map_path(previous_url: request.fullpath) %>
 
 <div class="table-responsive">
   <table id="ransack-table" class="table m-t-1">
@@ -20,16 +20,18 @@
         <% css_class = 'table-active' if map.areas.any? %>
         <tr class="<%= css_class %>">
           <td><%= map.id %></td>
-          <td>
-            <%= link_to map do %>
-              <%= map.to_label %><br />
-              <%= image_tag map.dashboard_map, style: 'width: 200px' %><% end %>
+          <td class="font-weight-bold">
+            <div class="text-xs-center e-map p-a-1">
+              <%= link_to map do %>
+                <p style="margin-bottom: .5rem"><%= map.to_label %></p>
+                <%= image_tag map.dashboard_map, style: 'width: 200px' %><% end %>
+            </div>
           </td>
           <td>
             <%= render 'areas', map: map %>
           </td>
           <td>
-            <%= render 'controls', map: map %>
+            <%= render 'controls', object: map %>
           </td>
         </tr>
       <% end %>

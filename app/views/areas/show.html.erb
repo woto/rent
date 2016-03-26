@@ -4,7 +4,7 @@
 
 <div class="m-y-2">
   <%== p @area.spotted_map.read.force_encoding("utf-8") %><br />
-  <span class="text-muted"><%= @area.square %> м<sup>2</sup> - <%= @area.ref %></span>
+  <span class="text-muted text-sm"><%= @area.square %> м<sup>2</sup> - <%= @area.ref %></span>
 </div>
 
 <div class="m-b-1">
@@ -18,7 +18,7 @@
 </div>
 
 <p>
-  <%= link_to 'Новый договор для этой торговой площади', new_contract_path(contract: {area_id: @area.id}), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Новый договор для этой торговой площади', new_contract_path(contract: {area_id: @area.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>
 </p>
 
-<%= render 'controls', area: @area %>
+<%= render 'show_controls', object: @area %>

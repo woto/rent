@@ -25,7 +25,7 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Новая транзакция', new_transaction_path %>
+<%= link_to 'Новая транзакция', new_transaction_path(previous_url: request.fullpath) %>
 
 <div class="table-responsive">
   <table id="ransack-table" class="table m-t-1">
@@ -41,7 +41,7 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="text-sm">
       <% @transactions.each do |transaction| %>
         <tr>
           <td><%= transaction.id %></td>
@@ -69,4 +69,7 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @transactions %>
+
 </div>
