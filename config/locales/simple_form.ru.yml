@@ -19,6 +19,7 @@ ru:
         title_cont: Название содержит
         renter: Арендатор
         amount: Сумма
+        comment: Комментарий
       map:
         map: Территория
       area:

@@ -19,6 +19,7 @@
     <%= f.input :account_lteq %>
     <%= f.input :created_at_gteq, as: :date, include_blank: true %>
     <%= f.input :created_at_lteq, as: :date, include_blank: true %>
+    <%= f.input :comment_cont %>
     <div class="form-group m-b-0">
       <%= f.submit "Искать", class: 'btn btn-outline-primary' %>
     </div>
@@ -38,6 +39,7 @@
         <th>Сумма</th>
         <th>Было<br />Стало</th>
         <th>Дата</th>
+        <th>Комментарий</th>
       </tr>
     </thead>
 
@@ -64,6 +66,9 @@
           </td>
           <td>
             <%= l transaction.created_at, format: :long %>
+          </td>
+          <td>
+            <%= transaction.comment %>
           </td>
         </tr>
       <% end %>

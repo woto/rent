@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320124855) do
+ActiveRecord::Schema.define(version: 20160325175503) do
 
   create_table "areas", force: :cascade do |t|
     t.integer  "map_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160320124855) do
     t.float    "account"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "comment"
   end
 
   add_index "transactions", ["area_id"], name: "index_transactions_on_area_id"

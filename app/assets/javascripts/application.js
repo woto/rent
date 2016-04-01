@@ -19,6 +19,7 @@
 //= require URI.js/src/URI.js
 
 var callback = function(list, $b_svg_map, e){
+  remove_menu();
   svg = e.target.getBBox();
   $('<ul />').attr({class: 'menu'}).
     css({
@@ -30,9 +31,13 @@ var callback = function(list, $b_svg_map, e){
   $(e.target).addClass("on");
 }
 
-$(document).on('click', function(e){
+var remove_menu = function(){
   $('.menu').remove();
   $('*').removeClass("on");
+}
+
+$(document).on('click', function(e){
+  remove_menu();
   $target = $(e.target);
 
   $b_svg_map = $target.closest('.b-svg-map')
@@ -55,7 +60,7 @@ $(document).on('click', function(e){
           list = '<li><a href="/areas/' + data.id + '?' + $.param(params) + '">Торговая площадь: ' + data.title + '</a></li>';
           $.get('/areas/' + data.id + '/today_renter').done(function(data){
             if(data != null) {
-              list = list + '<li><a href="/renters/'+data.id + '?' + $.param(params) + '">Арендатор: '+data.title+'</a></li>';
+              list = list + '<li><a href="/renters/' + data.id + '?' + $.param(params) + '">Арендатор: '+data.title+'</a></li>';
             }
             callback(list, $b_svg_map, e);
           })
