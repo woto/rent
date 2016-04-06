@@ -1,5 +1,5 @@
 <%= page_header do %>
-  <h1>Просмотр территории <%= @map.to_label %></h1>
+  <h1>Просмотр территории <small class="text-warning"><%= @map.to_label %></small></h1>
 <% end %>
 
 <div class="b-svg-map m-y-2" data-map-id='<%= @map.id %>'>

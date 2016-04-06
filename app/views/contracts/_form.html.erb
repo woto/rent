@@ -10,7 +10,8 @@
         <%= f.input :title %>
         <%= f.association :renter %>
         <%= f.association :area %>
-        <%= f.input :rate %>
+        <%= f.input :rate_month %>
+        <%= f.input :rate, disabled: true %>
         <%= f.input :date_start %>
         <%= f.input :date_end %>
       </div>

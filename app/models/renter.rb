@@ -10,9 +10,13 @@ class Renter < ApplicationRecord
     contracts.today_in_range.sum("rate")
   end
 
+  def today_contracts_rate_month
+    contracts.today_in_range.sum("rate")*31
+  end
+
   def forecast
     contracts.date_end_in_future.sum do |contract|
-      start_date = contract.date_start > Date.today ? contract.date_start : Date.today
+      start_date = contract.date_start > Date.current ? contract.date_start : Date.current
       end_date = contract.date_end + 1.day
       diff_date = end_date - start_date
       contract.rate * (diff_date >= 31 ? 31 : diff_date)

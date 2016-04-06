@@ -1,5 +1,5 @@
 namespace :rent do
-  desc "TODO"
+  desc ""
   task withdraw: :environment do
     ActiveRecord::Base.transaction do
       Contract.today_in_range.each do |contract|

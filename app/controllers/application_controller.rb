@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  http_basic_authenticate_with name: "taldom-auto.ru", password: "taldom-auto.ru"
+
 
   before_action :previous_url, only: [:show, :edit, :new, :destroy]
 

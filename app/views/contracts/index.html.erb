@@ -38,7 +38,7 @@
 
     <tbody>
       <% @contracts.each do |contract| %>
-        <% css_class = 'table-active' if contract.date_end >= Date.today %>
+        <% css_class = 'table-active' if contract.date_end >= Date.current %>
         <tr class="<%= css_class %>">
           <td><%= contract.id %></td>
           <td class="font-weight-bold"><%= link_to contract.title, contract_path(contract, previous_url: request.fullpath) %></td>

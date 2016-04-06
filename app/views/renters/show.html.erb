@@ -1,5 +1,5 @@
 <%= page_header do %>
-  <h1>Просмотр арендатора <%= @renter.to_label %></h1>
+  <h1>Просмотр арендатора <small class="text-warning"><%= @renter.to_label %></small></h1>
 <% end %>
 
 <div class="m-b-1">
@@ -13,7 +13,7 @@
 </div>
 
 <div class="m-b-1">
-  <strong>Счёт, Долг:</strong><br />
+  <strong>Счёт, 31 день:</strong><br />
   <%= render 'money', renter: @renter, css_class: 'success' %>
 </div>
 

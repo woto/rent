@@ -18,3 +18,14 @@
     </div>
   </div>
 <% end %>
+
+<% total_a = 0 %>
+<% total_b = 0 %>
+
+<% Renter.all.each do |renter| %>
+  <% total_a += renter.account %>
+  <% total_b += renter.forecast %>
+<% end %>
+
+<h4>Итого общий баланс: <%= currency total_a %></h4>
+<h4>В следующие 31 день спишется со счетов: <%= currency total_b %></h4>

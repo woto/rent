@@ -22,9 +22,14 @@ module ApplicationHelper
         end)
       end
       if(area.today_contracts_rate > 0)
-        concat(content_tag(:p, class: 'text-muted') do
-          currency area.today_contracts_rate
-        end)
+        concat(
+          content_tag(:p, class: 'text-muted') do
+            concat(currency area.today_contracts_rate_month)
+            concat " ("
+            concat(currency area.today_contracts_rate)
+            concat ")"
+          end
+        )
       end
     end
   end
@@ -41,7 +46,10 @@ module ApplicationHelper
       end
       if(renter.today_contracts_rate > 0)
         concat(content_tag(:p, class: 'text-muted') do
-          currency renter.today_contracts_rate
+          concat(currency renter.today_contracts_rate_month)
+          concat " ("
+          concat(currency renter.today_contracts_rate)
+          concat ")"
         end)
       end
     end

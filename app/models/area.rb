@@ -15,6 +15,10 @@ class Area < ApplicationRecord
     contracts.today_in_range.sum("rate")
   end
 
+  def today_contracts_rate_month
+    contracts.today_in_range.sum("rate")*31
+  end
+
   def update_spotted_and_dashboard_maps!
     memoized_doc.css("##{ref} *").first['style'] = 'fill: #0275D8'
     Tempfile.open(['spotted_map', '.svg']) do |temp_file|
