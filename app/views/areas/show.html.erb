@@ -21,4 +21,6 @@
   <%= link_to 'Новый договор для этой торговой площади', new_contract_path(contract: {area_id: @area.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>
 </p>
 
+<%= render 'meta_date', object: @area %>
+
 <%= render 'show_controls', object: @area %>

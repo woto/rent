@@ -17,6 +17,8 @@
   <%= render 'money', renter: @renter, css_class: 'success' %>
 </div>
 
+<%= render 'meta_date', object: @renter %>
+
 <p>
   <%= link_to 'Новый договор для этого арендатора', new_contract_path(contract: {renter_id: @renter.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>
   <%= link_to 'Внести средства на счёт', new_transaction_path(transaction: {renter_id: @renter.id}, previous_url: request.fullpath), class: 'btn btn-outline-primary' %>

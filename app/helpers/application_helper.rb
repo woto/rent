@@ -82,6 +82,14 @@ module ApplicationHelper
     end
   end
 
+  def clever_datetime(datetime)
+    if datetime.year == Date.current.year
+      l datetime, format: :short
+    else
+      l datetime, format: :long
+    end
+  end
+
   def success_or_danger(renter)
     css_class = case
     when renter.account - renter.forecast < 0# || (renter.contracts.date_end_in_future.any? && renter.forecast - renter.account  > 0 )
